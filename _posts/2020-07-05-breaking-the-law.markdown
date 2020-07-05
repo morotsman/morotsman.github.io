@@ -1,0 +1,166 @@
+---
+layout: post
+title:  "Breaking the Law - Violating the Liskov Substitution Principle by throwing a new Exception in a Derived class"
+date:   2020-07-05 10:44:33 +0200
+categories: The Liskov Substitution Principle
+---
+
+![Alt Text](https://media.giphy.com/media/23nzO2bkwXykU/giphy.gif)
+
+Lets say you run a fruit store and you have created a general interface for fruits:
+
+{% highlight kotlin %}
+interface Fruit {
+    val color: String
+    val weightInGrams: Int
+    fun calories(): Float
+    //and so on
+}
+{% endhighlight %}
+
+A concrete implementation of the Fruit interface could look like so:
+
+{% highlight Ruby %}
+data class Apple(override val color: String, override val weightInGrams: Int) : Fruit {
+    override fun calories(): Float = (weightInGrams.toFloat() / 100) * 52
+}
+
+data class Orange(override val color: String, override val weightInGrams: Int) : Fruit {
+    override fun calories(): Float = (weightInGrams.toFloat() / 100) * 47
+}
+{% endhighlight %}
+
+You decide to do a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
+
+{% highlight Ruby %}
+data class Person(
+    val name: String,
+    val caloriesConsumed: Float = 0.0f,
+    val wightOfConsumedFuits: Int = 0
+) {
+    fun eat(fruit: Fruit): Person =
+        this.copy(
+            caloriesConsumed = (caloriesConsumed + fruit.calories()),
+            wightOfConsumedFuits = wightOfConsumedFuits + fruit.weightInGrams
+        )
+    }
+    
+private fun caloriesAndColorCalculator(person: Person, fruits: List<Fruit>): Person =
+    fruits.fold(person){ acc, fruit -> acc.eat(fruit) }
+{% endhighlight %}
+
+The calculator can be used as follows:
+
+{% highlight Ruby %}
+val consumedFruits = listOf(
+    Apple("Red", 50),
+    Apple("Red", 100),
+    Orange("Orange", 100)
+)
+    
+println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+#=> prints Person(name=Niklas, caloriesConsumed=125.0, wightOfConsumedFuits=250)
+{% endhighlight %}
+
+## So lets Break the Law. 
+
+![Alt Text](https://media.giphy.com/media/ARz1MgbdjyH4s/giphy.gif)
+
+Ackee is a fruit, however it is poisonous if it is not prepared in the correct way. Since it's used for medical purposes it could still be that you sell it in the store. 
+
+So it could be that we implement the Fruit api like this for Ackee:
+
+{% highlight Ruby %}
+data class Ackee(override val color: String, override val weightInGrams: Int) : Fruit {
+    override fun calories(): Float = throw RuntimeException("You can't eat this!")
+}
+{% endhighlight %}
+
+When we run the calculator again we get the following result:
+
+{% highlight Ruby %}
+val consumedFruits = listOf(
+    Apple("Red", 50),
+    Apple("Red", 100),
+    Orange("Orange", 100),
+    Ackee("Orange", 100)
+)
+        
+println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+        
+#=> prints Exception in thread "main" java.lang.RuntimeException: You can't eat this!
+{% endhighlight %}
+
+## The Liskov Substitution Principle
+
+The Liskov Substitution Principle [LSP] states that: Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
+
+In this case we introduced an Exception in one of the subtypes (Ackee) which causes our calculator to crash, i.e. breaking the law.
+
+## Alternative design
+
+So how could we avoid the problem? Lets introduce a new interface called EatableFruit and move the calories function to it:
+
+{% highlight Ruby %}
+interface Fruit {
+    val color: String
+    val weightInGrams: Int
+    //and so on
+}
+
+interface EatableFruit: Fruit {
+    fun calories(): Float
+}
+{% endhighlight %}
+
+We now implement the subtypes like this:
+
+{% highlight Ruby %}
+data class Apple(override val color: String, override val weightInGrams: Int) : EatableFruit {
+    override fun calories(): Float = (weightInGrams.toFloat() / 100) * 52
+}
+
+data class Orange(override val color: String, override val weightInGrams: Int) : EatableFruit {
+    override fun calories(): Float = (weightInGrams.toFloat() / 100) * 47
+}
+
+data class Ackee(override val color: String, override val weightInGrams: Int) : Fruit
+{% endhighlight %}
+
+We have to update the calculator:
+
+{% highlight Ruby %}
+data class Person(
+    val name: String,
+    val caloriesConsumed: Float = 0.0f,
+    val wightOfConsumedFuits: Int = 0
+) {
+    fun eat(fruit: EatableFruit): Person =
+        this.copy(
+            caloriesConsumed = (caloriesConsumed + fruit.calories()),
+            wightOfConsumedFuits = wightOfConsumedFuits + fruit.weightInGrams
+        )
+}
+
+private fun caloriesAndColorCalculator(person: Person, fruits: List<EatableFruit>): Person =
+    fruits.fold(person) { acc, fruit -> acc.eat(fruit) }
+{% endhighlight %}
+
+And we use the calculator like this:
+
+{% highlight Ruby %}
+val consumedFruits = listOf(
+        Apple("Red", 50),
+        Apple("Red", 100),
+        Orange("Orange", 100)
+     )
+
+println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+{% endhighlight %}
+
+It no longer possible to send Ackee to the calculator since it is not an eatable fruit.
+
+The code example implemented in Kotlin are available at: [github]
+
+[github]: https://github.com/morotsman/about_kotlin/blob/master/src/main/kotlin/org/example/liskov/LiskovBreakingTheLaw.kt
+[LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
