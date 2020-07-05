@@ -7,14 +7,14 @@ categories: The Liskov Substitution Principle
 
 ![Alt Text](https://media.giphy.com/media/23nzO2bkwXykU/giphy.gif)
 
-Lets say you run a fruit store and you have created a general interface for fruits:
+Let's say that you run a fruit store and you have created a general interface for fruits:
 
 {% highlight kotlin %}
 interface Fruit {
     val color: String
     val weightInGrams: Int
     fun calories(): Float
-    //and so on
+    //price and so on
 }
 {% endhighlight %}
 
@@ -30,7 +30,7 @@ data class Orange(override val color: String, override val weightInGrams: Int) :
 }
 {% endhighlight %}
 
-You decide to do a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
+You decide implement a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
 
 {% highlight Ruby %}
 data class Person(
@@ -68,7 +68,7 @@ println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
 
 Ackee is a fruit, however it is poisonous if it is not prepared in the correct way. Since it's used for medical purposes it could still be that you sell it in the store. 
 
-So it could be that we implement the Fruit api like this for Ackee:
+So it could be that we implement the Fruit api like this for Ackee (no need to calculate the calories since it should not be eaten):
 
 {% highlight Ruby %}
 data class Ackee(override val color: String, override val weightInGrams: Int) : Fruit {
@@ -76,7 +76,7 @@ data class Ackee(override val color: String, override val weightInGrams: Int) : 
 }
 {% endhighlight %}
 
-When we run the calculator again we get the following result:
+If we by mistake consumes an Ackee fruit and then try to calculate our daily intake of calories we get the following result:
 
 {% highlight Ruby %}
 val consumedFruits = listOf(
@@ -90,6 +90,8 @@ println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
         
 #=> prints Exception in thread "main" java.lang.RuntimeException: You can't eat this!
 {% endhighlight %}
+
+You could argue that getting an Exception is the smallest of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
 
 ## The Liskov Substitution Principle
 
