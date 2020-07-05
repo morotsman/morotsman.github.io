@@ -91,7 +91,7 @@ println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
 #=> prints Exception in thread "main" java.lang.RuntimeException: You can't eat this!
 {% endhighlight %}
 
-You could argue that getting an Exception is the smallest of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
+You could argue that getting an Exception is the least of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
 
 ## The Liskov Substitution Principle
 
@@ -162,7 +162,7 @@ println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
 
 It no longer possible to send Ackee to the calculator since it is not an eatable fruit.
 
-The code example implemented in Kotlin are available at: [github]
+The code examples implemented in Kotlin are available at: [github]
 
 [github]: https://github.com/morotsman/about_kotlin/blob/master/src/main/kotlin/org/example/liskov/LiskovBreakingTheLaw.kt
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
