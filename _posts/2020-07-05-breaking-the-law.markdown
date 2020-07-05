@@ -86,7 +86,7 @@ val consumedFruits = listOf(
     Ackee("Orange", 100)
 )
         
-println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
         
 #=> prints Exception in thread "main" java.lang.RuntimeException: You can't eat this!
 {% endhighlight %}
