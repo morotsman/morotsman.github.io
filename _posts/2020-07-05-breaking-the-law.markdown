@@ -36,16 +36,16 @@ You decide implement a calculator so that the customer can calculate the number 
 data class Person(
     val name: String,
     val caloriesConsumed: Float = 0.0f,
-    val wightOfConsumedFuits: Int = 0
+    val weightOfConsumedFuits: Int = 0
 ) {
     fun eat(fruit: Fruit): Person =
         this.copy(
             caloriesConsumed = (caloriesConsumed + fruit.calories()),
-            wightOfConsumedFuits = wightOfConsumedFuits + fruit.weightInGrams
+            weightOfConsumedFuits = weightOfConsumedFuits + fruit.weightInGrams
         )
     }
     
-private fun caloriesAndColorCalculator(person: Person, fruits: List<Fruit>): Person =
+private fun caloriesAndWeightCalculator(person: Person, fruits: List<Fruit>): Person =
     fruits.fold(person){ acc, fruit -> acc.eat(fruit) }
 {% endhighlight %}
 
@@ -58,7 +58,7 @@ val consumedFruits = listOf(
     Orange("Orange", 100)
 )
     
-println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 #=> prints Person(name=Niklas, caloriesConsumed=125.0, wightOfConsumedFuits=250)
 {% endhighlight %}
 
@@ -135,16 +135,16 @@ We have to update the calculator:
 data class Person(
     val name: String,
     val caloriesConsumed: Float = 0.0f,
-    val wightOfConsumedFuits: Int = 0
+    val weightOfConsumedFuits: Int = 0
 ) {
     fun eat(fruit: EatableFruit): Person =
         this.copy(
             caloriesConsumed = (caloriesConsumed + fruit.calories()),
-            wightOfConsumedFuits = wightOfConsumedFuits + fruit.weightInGrams
+            weightOfConsumedFuits = weightOfConsumedFuits + fruit.weightInGrams
         )
 }
 
-private fun caloriesAndColorCalculator(person: Person, fruits: List<EatableFruit>): Person =
+private fun caloriesAndWeightCalculator(person: Person, fruits: List<EatableFruit>): Person =
     fruits.fold(person) { acc, fruit -> acc.eat(fruit) }
 {% endhighlight %}
 
@@ -157,7 +157,7 @@ val consumedFruits = listOf(
         Orange("Orange", 100)
      )
 
-println(caloriesAndColorCalculator(Person("Niklas"), consumedFruits))
+println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 {% endhighlight %}
 
 It no longer possible to send Ackee to the calculator since it is not an eatable fruit.
