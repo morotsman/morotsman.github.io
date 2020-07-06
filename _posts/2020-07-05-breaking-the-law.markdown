@@ -59,10 +59,10 @@ val consumedFruits = listOf(
 )
     
 println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
-#=> prints Person(name=Niklas, caloriesConsumed=125.0, wightOfConsumedFuits=250)
+#=> prints Person(name=Niklas, caloriesConsumed=125.0, weightOfConsumedFuits=250)
 {% endhighlight %}
 
-## So lets Break the Law. 
+## So let's Break the Law. 
 
 ![Alt Text](https://media.giphy.com/media/ARz1MgbdjyH4s/giphy.gif)
 
@@ -91,7 +91,7 @@ println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 #=> prints Exception in thread "main" java.lang.RuntimeException: You can't eat this!
 {% endhighlight %}
 
-You could argue that getting an Exception is the least of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
+One could argue that getting an Exception is the least of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
 
 ## The Liskov Substitution Principle
 
@@ -160,7 +160,7 @@ val consumedFruits = listOf(
 println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 {% endhighlight %}
 
-It no longer possible to send Ackee to the calculator since it is not an eatable fruit.
+It no longer possible to send Ackee to the calculator since it is not an eatable fruit. 
 
 The code examples implemented in Kotlin are available at: [github]
 
