@@ -95,7 +95,8 @@ One could argue that getting an Exception is the least of our problems at the mo
 
 ## The Liskov Substitution Principle
 
-The Liskov Substitution Principle [LSP] states that: Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
+The Liskov Substitution Principle [LSP] states that: 
+> Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
 
 In this case we introduced an Exception in one of the subtypes (Ackee) which causes our calculator to crash, i.e. breaking the law.
 
