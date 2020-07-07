@@ -54,7 +54,7 @@ You now know the drill about replacing UA-XXXXXXXXX-X with the Tracking Id from 
 
 ## Add google-analytics.html
 
-Create a new file called google-analytics.html in the _includes directory (I also had to create the directorty)
+Create a new file called google-analytics.html in the _includes directory (I also had to create the directory)
 
 ![Tracking code]({{ site.url }}/assets/adding_ga/Directory.png)
 
