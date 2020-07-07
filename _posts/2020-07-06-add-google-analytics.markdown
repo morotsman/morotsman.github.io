@@ -80,4 +80,6 @@ Time to celebrate and observe in realtime that the blog has zero visitors, but h
 
 ![Tracking code]({{ site.url }}/assets/adding_ga/visitors.png)
 
+[Google analytics]: https://analytics.google.com/
+
 
