@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Add google analytics to my blog on Github pages"
+title:  "How to add Google analytics to a blog hosted on Github pages"
 date:   2020-07-05 10:44:33 +0200
 categories: blog, google analytics, Jekyll, Github pages
 ---
