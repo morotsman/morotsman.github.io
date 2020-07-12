@@ -7,6 +7,23 @@ categories: The Liskov Substitution Principle
 
 ![Alt Text](https://media.giphy.com/media/23nzO2bkwXykU/giphy.gif)
 
+## The Liskov Substitution Principle
+
+
+The Liskov Substitution Principle [LSP] states that: 
+
+> Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
+
+This boils down to some requirements on the type signature:
+
+> * Contravariance of method arguments in the subtype.
+> * Covariance of return types in the subtype.
+> * No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype. 
+
+Let's learn a little more about the Liskov Substitution Principle by investigating a design problem and during that process breaking the law.
+
+## Fruit store
+
 Let's say that you run a fruit store and you have created a general interface for fruits:
 
 {% highlight kotlin %}
@@ -95,7 +112,7 @@ One could argue that getting an Exception is the least of our problems at the mo
 
 ## The Liskov Substitution Principle
 
-The Liskov Substitution Principle [LSP] states that: 
+As mentioned above the Liskov Substitution Principle [LSP] states that: 
 > Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
 
 In this case we introduced an Exception in one of the subtypes (Ackee) which causes our calculator to crash, i.e. breaking the law.
