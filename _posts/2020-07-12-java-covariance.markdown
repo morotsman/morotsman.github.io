@@ -98,8 +98,8 @@ private static Map<String, List<Fruit>> groupFruitByColor(List<Fruit> fruits) {
 	return fruits.stream().collect(groupingBy(Fruit::color));
 }
 
-private static Map<String, List<Fruit>> groupAppleByColor(List<Apple> fruits) {
-	return fruits.stream().collect(groupingBy(Fruit::color));
+private static Map<String, List<Apple>> groupAppleByColor(List<Apple> fruits) {
+	return fruits.stream().collect(groupingBy(Apple::color));
 }
 {% endhighlight %}
 
