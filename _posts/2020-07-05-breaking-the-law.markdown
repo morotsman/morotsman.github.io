@@ -47,7 +47,7 @@ data class Orange(override val color: String, override val weightInGrams: Int) :
 }
 {% endhighlight %}
 
-You decide implement a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
+You decide to implement a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
 
 {% highlight Ruby %}
 data class Person(
