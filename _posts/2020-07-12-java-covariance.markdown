@@ -234,7 +234,7 @@ public interface Supplier<T> {
 }
 {% endhighlight %}
 
-The Supplier interface was introduced in Java 8 when Java got support for lamdas and is used like so:
+The Supplier interface was introduced in Java 8 when Java got support for lambdas and is used like so:
 
 {% highlight Ruby %}
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
