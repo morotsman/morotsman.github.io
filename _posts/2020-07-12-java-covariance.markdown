@@ -161,7 +161,7 @@ fruitsCovariant = apples;
 Fruit someFruit = fruitsCovariant.get(0);
 {% endhighlight %} 
 
-Even if fruitsCovariant in the example above is a list of apples it is safe to use for the client to use since Apple supports all operations of Fruit.
+Even if fruitsCovariant in the example above in reality is a list of apples it is safe to use for the client to use since Apple supports all operations of Fruit.
 
 So why is not a List covariant by default in Java, after all this looks like the desired behaviour?
 
