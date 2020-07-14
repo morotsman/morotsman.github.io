@@ -311,7 +311,7 @@ Supplier<? extends Fruit> supplierOfFruitCovariant;
 supplierOfFruitCovariant = supplierOfApple; // supplierOfApple is now a subtype
 {% endhighlight %}
 
-## The Liskov Substitution Principle repeated
+## The Liskov Substitution Principle revisited
 
 The Liskov Substitution Principle [LSP] states that: 
 
