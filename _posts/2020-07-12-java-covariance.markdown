@@ -110,7 +110,7 @@ But this violates the [DRY] principle, so what to do, what to do?
 
 ## Covariance to the rescue
 
-So how can we convince the compiler that it's safe to call groupFruitByColor with a list of apple? Well, we could use covariance!
+So how can we convince the compiler that it's safe to call groupFruitByColor with a list of apple? Well, we could use [covariance]!
 
 Covariance is declared like this in Java:
 
@@ -161,7 +161,14 @@ fruitsCovariant = apples;
 Fruit someFruit = fruitsCovariant.get(0);
 {% endhighlight %} 
 
-Even if fruitsCovariant in the example above in reality is a list of apples it is safe to use for the client to use since Apple supports all operations of Fruit.
+Even if fruitsCovariant in the example above in reality is a list of apples it is safe to use for the client to use since Apple supports all operations of Fruit. We have made fruitsCovariant covariant on Fruit. 
+
+So what is [covariance]? Well, it's defined like this on wikipedia:
+
+> Within the type system of a programming language, a typing rule or a type constructor is:
+> * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic;
+
+In our case we preserve the ordering of types since: Fruit is the supertype of Apple and we have declared the List of Fruit (fruitsCovariant) to be the supertype of all lists that contains Fruit or any subtype of Fruit (like List of Apple). This means that we have fulfilled the definition of something that is covariant. 
 
 So why is not a List covariant by default in Java, after all this looks like the desired behaviour?
 
@@ -391,7 +398,7 @@ In the code above we are covariant in the return type of the getJoice method in 
 
 The code examples are available at [github].
 
-
+[covariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
 [DRY]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 [generic types]: https://docs.oracle.com/javase/tutorial/java/generics/types.html
