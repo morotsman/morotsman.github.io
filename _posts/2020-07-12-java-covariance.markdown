@@ -217,9 +217,6 @@ listOfFruitCovariant.add(new Orange()); // dangerous operation, not allowed by t
 No, we have not! The downside(?) is that we can only read from the covariant array which of course is a problem in a language like Java that relies on mutability to get the work done. 
 
 
-![You shall not pass](https://media.giphy.com/media/njYrp176NQsHS/giphy.gif)
-
-
 ## Another example
 
 Let us investigate how another another generic type behaves in regard of covariance: the Supplier. Also since it looks like I have captured your interest I will skip the GIF's in the rest of this post, on the other hand feel free to skip the rest of the post if the GIF's was what captured your interest. 
