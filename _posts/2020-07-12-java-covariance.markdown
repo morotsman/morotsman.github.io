@@ -153,7 +153,7 @@ List<Apple> apples = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")
 fruits = apples; // will not compile 
 {% endhighlight %}
 
-The reason for this is that [generic types]: like List, Optional or Set is by the default invariant in Java. By that we mean that List of Apple is not a subtype of List of Fruit. So if we want List<Apple> to be a subtype of List<Fruit> (or covariant) we must override the default behaviour like this:
+The reason for this is that [generic types]: like List, Optional or Set is by the default invariant in Java. By that we mean that List of Apple is not a subtype of List of Fruit. So if we want List of Apple to be a subtype of List of Fruit (or covariant) we must override the default behaviour like this:
 
 {% highlight Ruby %}
 List<? extends Fruit> fruitsCovariant;
