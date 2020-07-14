@@ -214,9 +214,10 @@ listOfFruitCovariant.add(new Apple("Red")); // dangerous operation, not allowed 
 listOfFruitCovariant.add(new Orange()); // dangerous operation, not allowed by the compiler
 {% endhighlight %} 
 
-![You shall not pass](https://media.giphy.com/media/njYrp176NQsHS/giphy.gif)
-
 No, we have not! The downside(?) is that we can only read from the covariant array which of course is a problem in a language like Java that relies on mutability to get the work done. 
+
+
+![You shall not pass](https://media.giphy.com/media/njYrp176NQsHS/giphy.gif)
 
 
 ## Another example
