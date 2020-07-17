@@ -4,15 +4,11 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+A general blog about software development. Feel free to contact me throught mail at leopold.niklas@gmail.com or on [linkedin] if you have any comments or feedback.
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+Best regards
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
+Niklas Leopold
 
-
-[jekyll-organization]: https://github.com/jekyll
+[through mail]: leopold.niklas@gmail.com
+[linkedin]: https://www.linkedin.com/in/niklas-leopold-a359293/

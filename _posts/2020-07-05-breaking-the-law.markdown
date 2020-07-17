@@ -182,5 +182,8 @@ It no longer possible to send Ackee to the calculator since it is not an eatable
 
 The code examples implemented in Kotlin are available at: [github]
 
+If your interested in reading more about the Liskov substitution principle I have written [another] post that focuses on covariance and [LSP].
+
 [github]: https://github.com/morotsman/about_kotlin/blob/master/src/main/kotlin/org/example/liskov/LiskovBreakingTheLaw.kt
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
+[another]: https://morotsman.github.io/java,/covariance,/the/liskov/substitution/principle/2020/07/12/java-covariance.html

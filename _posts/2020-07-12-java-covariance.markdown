@@ -398,8 +398,12 @@ In the code above we are covariant in the return type of the getJoice method in 
 
 The code examples are available at [github].
 
+If your interested in reading more about the Liskov substitution principle I have written [another] post that focuses on exceptions and [LSP].
+
+
 [covariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
 [DRY]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 [generic types]: https://docs.oracle.com/javase/tutorial/java/generics/types.html
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/covariance
+[another]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
