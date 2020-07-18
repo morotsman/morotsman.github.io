@@ -27,7 +27,7 @@ Let's learn a little more about the Liskov Substitution Principle and covariance
 
 We run a small fruit store and have created a small class hierarchy that models different kinds of fruits.
 
-{% highlight Ruby %}
+{% highlight java %}
 
 interface Fruit {
 	String color();
@@ -66,21 +66,21 @@ We would like to group our fruits based on color. This is not a made up thing by
 
 In Java code this looks like:
 
-{% highlight Ruby %}
+{% highlight java %}
 private static Map<String, List<Fruit>> groupFruitByColor(List<Fruit> fruits) {
 	return fruits.stream().collect(groupingBy(Fruit::color));
 }
 {% endhighlight %}
 
 And the client would use it like so:
-{% highlight Ruby %}
+{% highlight java %}
 List<Fruit> listOfFruit = new ArrayList<>(asList(new Apple("Red"), new Apple("Green"), new Orange(), new Orange()));
 groupFruitByColor(listOfFruit)
 {% endhighlight %}
 
 Ok, so now group this list of apples instead.
 
-{% highlight Ruby %}
+{% highlight java %}
 List<Apple> listOfApple = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
 groupFruitByColor(listOfApple) // will not compile
 {% endhighlight %}
@@ -97,7 +97,7 @@ The operation used by groupFruitByColor for example is color and we know that al
 
 One way of solving the problem would be to use that old copy/paste trick:
 
-{% highlight Ruby %}
+{% highlight java %}
 private static Map<String, List<Fruit>> groupFruitByColor(List<Fruit> fruits) {
 	return fruits.stream().collect(groupingBy(Fruit::color));
 }
@@ -118,7 +118,7 @@ So how can we convince the compiler that it's safe to call groupFruitByColor wit
 
 Covariance is declared like this in Java:
 
-{% highlight Ruby %}
+{% highlight java %}
 private static Map<String, List<Fruit>> groupFruitByColorCovariant(List<? extends Fruit> fruits) {
 	return fruits.stream().collect(groupingBy(Fruit::color));
 }
@@ -126,7 +126,7 @@ private static Map<String, List<Fruit>> groupFruitByColorCovariant(List<? extend
 
 And now the compiler is happy!
 
-{% highlight Ruby %}
+{% highlight java %}
 List<Fruit> listOfFruit = new ArrayList<>(asList(new Apple("Red"), new Apple("Green"), new Orange(), new Orange()));
 List<Apple> listOfApple = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
 groupFruitByColorCovariant(listOfFruit);
@@ -141,7 +141,7 @@ Oh yeah, Gandalf is happy!
 
 But what exactly did we do? Consider the following code:
 
-{% highlight Ruby %}
+{% highlight java %}
 Fruit fruit;
 Apple apple = new Apple("Red");
 fruit = apple;
@@ -151,7 +151,7 @@ It's safe to assign an Apple to a Fruit variable since all operations of the sup
 
 But if we do the same to a list of fruits and a list of apples, the compiler complains.
 
-{% highlight Ruby %}
+{% highlight java %}
 List<Fruit> fruits;
 List<Apple> apples = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
 fruits = apples; // will not compile 
@@ -159,7 +159,7 @@ fruits = apples; // will not compile
 
 The reason for this is that [generic types]: like List, Optional or Set is by the default invariant in Java. By that we mean that List of Apple is not a subtype of List of Fruit. So if we want List of Apple to be a subtype of List of Fruit (or covariant) we must override the default behaviour like this:
 
-{% highlight Ruby %}
+{% highlight java %}
 List<? extends Fruit> fruitsCovariant;
 fruitsCovariant = apples;
 Fruit someFruit = fruitsCovariant.get(0);
@@ -182,7 +182,7 @@ Well, the thing is that Java relies on mutability to get the work done. Let's in
 
 An array in Java is covariant by default:
 
-{% highlight Ruby %}
+{% highlight java %}
 Fruit[] arrayOfFruit;
 Apple[] arrayOfApple = new Apple[]{new Apple("Red"), new Apple("Green")};
 {% endhighlight %} 
@@ -195,13 +195,13 @@ Oh yeah, Gandalf is still happy! But wait! Should he?
 
 What happens if we do the following:
 
-{% highlight Ruby %}
+{% highlight java %}
 arrayOfFruit[0] = new Orange();
 {% endhighlight %} 
 
 Well, the compiler don't complain, it's ok to insert an Orange in an array of Fruit, this since an Orange is a subtype of Fruit. But if I do the following: 
 
-{% highlight Ruby %}
+{% highlight java %}
 arrayOfApple[0] = new Orange();
 {% endhighlight %} 
 
@@ -213,7 +213,7 @@ But why did we end up in trouble? Well the reason was that the array is mutable,
 
 So have we introduced the same problem when making our List of fruit covariant? Well yes and no, we would have if the compiler let us add or update an element in the List, but does it?
 
-{% highlight Ruby %}
+{% highlight java %}
 List<? extends Fruit> listOfFruitCovariant = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
 listOfFruitCovariant = listOfApple;
 listOfApple.add(new Apple("Green"));
@@ -232,7 +232,7 @@ No, we have not! The downside(?) is that we can only read from the covariant arr
 
 Let us investigate how another another generic type behaves in regard of covariance: the Supplier. Also since it looks like I have captured your interest I will skip the GIF's in the rest of this post, on the other hand feel free to skip the rest of the post if the GIF's was what captured your interest. 
 
-{% highlight Ruby %}
+{% highlight java %}
 @FunctionalInterface
 public interface Supplier<T> {
 
@@ -247,14 +247,14 @@ public interface Supplier<T> {
 
 The Supplier interface was introduced in Java 8 when Java got support for lambdas and is used like so:
 
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
 Apple apple = supplierOfApple.get();
 {% endhighlight %}
 
 Since generic types are invariant the following is not possibe:
 
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<Fruit> supplierOfFruit;
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
 supplierOfFruit = supplierOfApple; // will not compile
@@ -262,7 +262,7 @@ supplierOfFruit = supplierOfApple; // will not compile
 
 But is that a problem? Consider the following code:
 
-{% highlight Ruby %}
+{% highlight java %}
 private static void printColorOfFruit(Supplier<Fruit> supplier) {
 	printColorOfFruit(supplier.get());
 }
@@ -274,7 +274,7 @@ private static void printColorOfFruit(Fruit fruit) {
 
 printColorOfFruit can be invoked like this:
 
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<Fruit> supplierOfFruit = new Supplier<Fruit>() {
 	@Override
 	public Fruit get() {
@@ -288,13 +288,13 @@ printColorOfFruit(() -> new Apple("Red"));
 
 But what if we would like to call printColorOfFruit with a supplier of Apple, after all this should be safe since an Apple is a subtype of Fruit and must support all operations of Fruit.
 
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
 printColorOfFruit(supplierOfApple); // will not compile
 {% endhighlight %}
 
 This is not possible. One way to fix the problem is to use copy/paste but we have already concluded that this is not optimal.
-{% highlight Ruby %}
+{% highlight java %}
 private static void printColorOfFruit(Supplier<Fruit> supplier) {
 	printColorOfFruit(supplier.get());
 }
@@ -306,7 +306,7 @@ private static void printColorOfApple(Supplier<Apple> supplier) {
 
 Could we use covariance again? Turn's out that we can:
 
-{% highlight Ruby %}
+{% highlight java %}
 private static void printColorOfFruitCovariant(Supplier<? extends Fruit> supplier) {
 	printColorOfFruit(supplier.get());
 }
@@ -317,7 +317,7 @@ printColorOfFruitCovariant(supplierOfApple);
 
 This works since by declaring the Supplier as covariant in Fruit we have turned the Supplier of Apple to a subtype of a Supplier of Fruit.
 
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<? extends Fruit> supplierOfFruitCovariant;
 supplierOfFruitCovariant = supplierOfApple; // supplierOfApple is now a subtype
 {% endhighlight %}
@@ -336,7 +336,7 @@ This boils down to some requirements on the type signature:
 
 So why should the return types be covariant? Because we get a more flexible API (no copy/paste) and it is safe for the client to use.
     
-{% highlight Ruby %}
+{% highlight java %}
 Supplier<? extends Fruit> supplierOfFruitCovariant;
 supplierOfFruitCovariant = supplierOfApple; // supplierOfApple is now a subtype
 Fruit fruit = supplierOfFruitCovariant.get();
@@ -348,7 +348,7 @@ And why is it safe? It is safe since the client expects that a Fruit is returned
 
 The same goes for our covariant list of fruit:
 
-{% highlight Ruby %}
+{% highlight java %}
 List<Apple> apples = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
 List<? extends Fruit> fruitsCovariant;
 fruitsCovariant = apples;
@@ -359,7 +359,7 @@ The client expects a list of fruit, it could not care less if in reality it gets
 
 ## A final example
 
-{% highlight Ruby %}
+{% highlight java %}
 interface FruitCovariant {
 	Joice getJoice();
 };

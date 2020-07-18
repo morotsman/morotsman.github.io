@@ -125,7 +125,7 @@ In this case we introduced an Exception in one of the subtypes (Ackee) which cau
 
 So how could we avoid the problem? Lets introduce a new interface called EatableFruit and move the calories function to it:
 
-{% highlight Ruby %}
+{% highlight kotlin %}
 interface Fruit {
     val color: String
     val weightInGrams: Int
@@ -139,7 +139,7 @@ interface EatableFruit: Fruit {
 
 We now implement the subtypes like this:
 
-{% highlight Ruby %}
+{% highlight kotlin %}
 data class Apple(override val color: String, override val weightInGrams: Int) : EatableFruit {
     override fun calories(): Float = (weightInGrams.toFloat() / 100) * 52
 }
@@ -153,7 +153,7 @@ data class Ackee(override val color: String, override val weightInGrams: Int) : 
 
 We have to update the calculator:
 
-{% highlight Ruby %}
+{% highlight kotlin %}
 data class Person(
     val name: String,
     val caloriesConsumed: Float = 0.0f,
@@ -172,7 +172,7 @@ private fun caloriesAndWeightCalculator(person: Person, fruits: List<EatableFrui
 
 And we use the calculator like this:
 
-{% highlight Ruby %}
+{% highlight kotlin %}
 val consumedFruits = listOf(
         Apple("Red", 50),
         Apple("Red", 100),

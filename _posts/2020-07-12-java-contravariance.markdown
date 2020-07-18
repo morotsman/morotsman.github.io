@@ -21,11 +21,9 @@ This boils down to some requirements on the type signature:
 
 Let's learn a little more about the Liskov Substitution Principle and contravariance by investigating a design problem. 
 
-This is a work in progress! 
-
 ## The setup
 
-## The Problem
+## A more flexible signature?
 
 ## Covariance to the rescue?
 
