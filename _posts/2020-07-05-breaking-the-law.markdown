@@ -5,7 +5,8 @@ date:   2020-07-05 10:44:33 +0200
 categories: The Liskov Substitution Principle
 ---
 
-![Alt Text](https://media.giphy.com/media/23nzO2bkwXykU/giphy.gif)
+## About the post
+This is the first post in a series of three about the Liskov Substitution Principle. The other posts focuses on [LSP] in combination with [covariance] and [contravariance] so I will not dwell on those topics here.  
 
 ## The Liskov Substitution Principle
 
@@ -20,7 +21,10 @@ This boils down to some requirements on the type signature:
 > * Covariance of return types in the subtype.
 > * No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype. 
 
-Let's learn a little more about the Liskov Substitution Principle by investigating a design problem and during that process breaking the law.
+Let's learn a little more about the Liskov Substitution Principle by investigating a design problem and during that process break the law...
+
+![Alt Text](https://media.giphy.com/media/23nzO2bkwXykU/giphy.gif)
+
 
 ## Fruit store
 
@@ -110,7 +114,7 @@ println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 
 One could argue that getting an Exception is the least of our problems at the moment, but there is no argue in that we broke the law (the Liskov Substitution Principle that is).
 
-## The Liskov Substitution Principle
+## The Liskov Substitution Principle revisited
 
 As mentioned above the Liskov Substitution Principle [LSP] states that: 
 > Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
@@ -182,8 +186,8 @@ It no longer possible to send Ackee to the calculator since it is not an eatable
 
 The code examples implemented in Kotlin are available at: [github]
 
-If your interested in reading more about the Liskov substitution principle I have written [another] post that focuses on covariance and [LSP].
-
 [github]: https://github.com/morotsman/about_kotlin/blob/master/src/main/kotlin/org/example/liskov/LiskovBreakingTheLaw.kt
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
-[another]: https://morotsman.github.io/java,/covariance,/the/liskov/substitution/principle/2020/07/12/java-covariance.html
+[covariance]: https://morotsman.github.io/java,/covariance,/the/liskov/substitution/principle/2020/07/12/java-covariance.html
+[contravariance]: https://morotsman.github.io/java/contravariance/the/liskov/substitution/principle/2020/07/17/java-contravariance.html
+

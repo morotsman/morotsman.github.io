@@ -5,6 +5,10 @@ date:   2020-07-12 10:44:33 +0200
 categories: Java, Covariance, The Liskov Substitution Principle
 ---
 
+## About the post
+This is the second post in a series of three about the Liskov Substitution Principle. The other posts focuses on [LSP] in combination with [exceptions] and [contravariance] so I will not dwell on those topics here.  
+
+
 ## The Liskov Substitution Principle
 
 The Liskov Substitution Principle [LSP] states that: 
@@ -398,12 +402,11 @@ In the code above we are covariant in the return type of the getJoice method in 
 
 The code examples are available at [github].
 
-If your interested in reading more about the Liskov substitution principle I have written [another] post that focuses on exceptions and [LSP].
-
 
 [covariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
 [DRY]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 [generic types]: https://docs.oracle.com/javase/tutorial/java/generics/types.html
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/covariance
-[another]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
+[contravariance]: https://morotsman.github.io/java/contravariance/the/liskov/substitution/principle/2020/07/17/java-contravariance.html
+[exceptions]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
