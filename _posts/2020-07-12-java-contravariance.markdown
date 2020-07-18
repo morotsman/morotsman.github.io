@@ -19,7 +19,9 @@ This boils down to some requirements on the type signature:
 > * Covariance of return types in the subtype.
 > * No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype. 
 
-Let's learn a little more about the Liskov Substitution Principle and contravariance by investigating a design problem.  
+Let's learn a little more about the Liskov Substitution Principle and contravariance by investigating a design problem. 
+
+This is a work in progress! 
 
 ## The setup
 
