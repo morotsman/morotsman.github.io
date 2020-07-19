@@ -251,7 +251,7 @@ This boils down to some requirements on the type signature:
 
 In our example we declared `Consumer<Eatable>` to be contravariant on `Eatable` (the in argument) which lead to that `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`.
     
-We observed that this is a safe thing to do and that we get a more flexible API. 
+We observed that this is a safe thing to do and that we got a more flexible API. 
     
 The code examples are available at [github].
 
