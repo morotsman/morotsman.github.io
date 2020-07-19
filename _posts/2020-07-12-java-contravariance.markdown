@@ -23,13 +23,209 @@ Let's learn a little more about the Liskov Substitution Principle and contravari
 
 ## The setup
 
+We run a small fruit store and have created a small class hierarchy that models different kinds of fruits.
+
+{% highlight java %}
+interface Fruit {
+	String color();
+};
+
+interface Eatable extends Fruit {
+	String joice();
+}
+
+class Orange implements Eatable {
+	public String color() {
+		return "Orange";
+	}
+
+	@Override
+	public String joice() {
+		return "Orange joice";
+	}
+}
+
+class Apple implements Eatable {
+	private final String color;
+
+	public Apple(String color) {
+		this.color = color;
+	}
+
+	@Override
+	public String color() {
+		return color;
+	}
+
+	@Override
+	public String joice() {
+		return "Apple joice";
+	}
+
+	public void removeAppleCore() {
+		System.out.println("Apple core removed");
+	}
+}
+{% endhighlight %}
+
 ## A more flexible signature?
+
+We will use the generic type Consumer as our test vehicle:  
+
+{% highlight java %}
+@FunctionalInterface
+public interface Consumer<T> {
+
+    /**
+     * Performs this operation on the given argument.
+     *
+     * @param t the input argument
+     */
+    void accept(T t);
+}
+{% endhighlight %}
+
+The Consumer interface was introduced in Java 8 when Java got support for lambdas and is used like so:
+
+{% highlight java %}
+Consumer<Apple> myConsumer = new Consumer<Apple>() {
+	@Override
+	public void accept(Apple apple) {
+		System.out.println("I like: " + apple.color() + " apples!");
+	}
+};
+myConsumer.accept(new Apple("Yellow"));
+
+// the same but more concise syntax
+Consumer<Apple> myConsumer1 = (Apple a) -> System.out.println("I like: " + a.color() + " apples!");
+myConsumer1.accept(new Apple("Red"));
+
+// the same but even more concise syntax
+Consumer<Apple> myConsumer2 = a -> System.out.println("I like: " + a.color() + " apples!");
+myConsumer2.accept(new Apple("Green"));
+{% endhighlight %}
+
+Ok, so let's say that you have implemented a function that supplies a Consumer an Eatable fruit:
+
+{% highlight java %}
+private static void getEatableFruits(Consumer<Eatable> eatableConsumer) {
+	eatableConsumer.accept(new Apple("Red"));
+}
+{% endhighlight %}
+
+After we have sent a Consumer to the getEatableFruits operation it is supplied a nice eatable fruit of unspecified kind. 
+
+Armed with the knowledge from the my previous post about [covariance] we know that this is probably not the most flexible signature  that is possible. Could we use covariance?
 
 ## Covariance to the rescue?
 
+We could change the signature to this:
+{% highlight java %}
+private static void getEatableFruitsCovariant(Consumer<? extends Eatable> eatableConsumer)
+{% endhighlight %}
+
+and then use the updated method like so:
+{% highlight java %}
+Consumer<? extends Eatable> eatableConsumerCovariant;
+Consumer<Apple> appleConsumer = (Apple a) -> System.out.println("With this fruit I can: " + a.removeAppleCore());
+eatableConsumerCovariant = appleConsumer;
+getEatableFruitsCovariant(eatableConsumerCovariant);
+{% endhighlight %}
+
+This looks amazing and it is also much more flexible! Now we only have to implement the getEatableFruitsCovariant and we are done! It goes like this: 
+
+{% highlight java %}
+private static void getEatableFruitsCovariant(Consumer<? extends Eatable> eatableConsumer) {
+	Apple apple = new Apple("Red");
+	// eatableConsumer.accept(apple); // will not compile
+}
+{% endhighlight %}
+
+![Computer says no](https://media.giphy.com/media/kQbMO5X7UA1C8/giphy.gif)
+
+**Wait! What! Why?**
+
+Well, it turns out that it is not safe to declare a Consumer to be covariant on `Eatable`. Why is that?
+
+Let's pretend for a moment that we did not get a compile error in the example above! If a `Consumer` is declared to be covariant it would be ok to call it like this:
+
+{% highlight java %}
+private static void getEatableFruitsCovariant(Consumer<? extends Eatable> eatableConsumer) {
+	Orange orange = new Orange();
+	eatableConsumer.accept(orange); // will not compile in reality
+
+	Apple apple = new Apple("Red");
+	eatableConsumer.accept(apple); // will not compile in reality
+}
+{% endhighlight %}
+
+And the client would use the method like this: 
+{% highlight java %}
+Consumer<? extends Eatable> eatableConsumerCovariant;
+Consumer<Apple> appleConsumer = (Apple a) -> System.out.println("With this fruit I can: " + a.removeAppleCore());
+eatableConsumerCovariant = appleConsumer;
+getEatableFruitsCovariant(eatableConsumerCovariant);
+{% endhighlight %}  
+
+Do you see the problem? Since we have declared that the `Consumer` is covariant on `Eatable` we have said that `Consumer<Apple>` is a subtype of `Consumer<Eatable>`. If that is the case we can (according to [LSP]) replace a `Consumer<Eatable>` with a `Consumer<Apple>`. Since an `Orange` also is a subtype of `Eatable` it is totally ok to feed the `Consumer<? extends Eatable>` with an `Orange`, which is the core of the problem. 
+
+The client is free to use a `Consumer<Apple>` when calling `getEatableFruitsCovariant` but at the same time `getEatableFruitsCovariant` is free to call the `Consumer<? exends Eatable>` with an `Orange`. But an `Orange` doesn't have the `removeAppleCore` that we later calls in `Consumer<Apple>`!  
+
+We fought the law and the law won ([LSP] that is).
+
+![Alt Text](https://media.giphy.com/media/ARz1MgbdjyH4s/giphy.gif)
+
+It is clear that we can't declare a `Consumer<Apple>` to be a subtype of `Consumer<Eatable>`.
+
+
 ## Contravariance to the rescue
 
-## Another example
+Ok, so what can we do? We can use contravariance! When using contravariance we goes in the other direction when subtyping. So if an `Eatable` is a subtype if `Fruit` then a `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. It looks like this in Java:
+
+{% highlight java %}
+Fruit fruit;
+Eatable eatable = new Apple("Red");
+fruit = eatable; //works since eatable is a subtype of fruit
+		
+Consumer<? super Eatable> eatableConsumerContravariant;
+Consumer<Fruit> fruitConsumer = (Fruit f) -> System.out.println("The color of the fruit is: " + f.color());
+eatableConsumerContravariant = fruitConsumer; // works since fruitConsumer is a subtype of eatableConsumerContravariant
+{% endhighlight %}  
+
+Ok, so let's try it out, we implement `getEatableFruits` like this instead: 
+
+{% highlight java %}
+private static void getEatableFruitsContravariant(Consumer<? super Eatable> eatableConsumer) {
+	Orange orange = new Orange();
+	eatableConsumer.accept(orange); 
+
+	Apple apple = new Apple("Red");
+	eatableConsumer.accept(apple); 
+}
+{% endhighlight %}
+
+No complaints from the compiler this time, so far so good! The client of getEatableFruitsContravariant will use the method like this:
+
+{% highlight java %}
+Consumer<? super Eatable> eatableConsumerContravariant = (Eatable e) -> System.out.println("With this fruit I can produce: " + e.joice());
+getEatableFruitsContravariant(eatableConsumerContravariant);
+
+Consumer<Fruit> fruitConsumer = (Fruit f) -> System.out.println("The color of the fruit is: " + f.color());
+getEatableFruitsContravariant(fruitConsumer);
+{% endhighlight %}
+
+Still no complaints from the compiler! We have found the flexible signature for our method, and it's always safe to use for the client! Why is that?
+  
+Well, we have to look at what is given to the `Consumer` and what the consumer expects. We have stated that a `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. 
+
+We know that the type of what we give to the `Consumer` in this case always will be at least an `Eatable` or a subtype of `Eatable` (like `Apple`).
+
+So the `Consumer<Eatable>` in this case will be given at least an `Eatable` which is no problem since it assumes that this is the case, it is not possible for it to use methods on for example `Apple`.
+
+What about `Consumer<Fruit>`? It will also be given at least an `Eatable` but it assumes even less than `Consumer<Eatable>`, it assumes that it is given a `Fruit`. Since it only uses methods on `Fruit` it is quite safe to send an `Eatable` to it since `Eatable` is a subtype of `Fruit` and hence must support all operations on `Fruit`. 
+
+All is well!    
+
 
 ## The Liskov Substitution Principle revisited
 
@@ -43,10 +239,10 @@ This boils down to some requirements on the type signature:
 > * Covariance of return types in the subtype.
 > * No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype. 
 
-So why should the return types be covariant? Because we get a more flexible API (no copy/paste) and it is safe for the client to use.
-    
-## A final example
+So why should the method arguments be contravariant in the subtypes? Because we get a more flexible API (no copy/paste) and it is safe for the client to use.
 
+In our example above we can according to [LSP] declare `Consumer<Eatable>` to be contravariant on `Eatable` which leads to that `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. This since `Eatable` in this case is an in argument.
+    
 
 
 [covariance]: https://morotsman.github.io/java,/covariance,/the/liskov/substitution/principle/2020/07/12/java-covariance.html
