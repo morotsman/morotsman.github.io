@@ -105,7 +105,7 @@ Consumer<Apple> myConsumer2 = a -> System.out.println("I like: " + a.color() + "
 myConsumer2.accept(new Apple("Green"));
 {% endhighlight %}
 
-Ok, so let's say that you have implemented a function that supplies a Consumer an Eatable fruit:
+Ok, so let's say that you have implemented a function that supplies a Consumer with an Eatable fruit:
 
 {% highlight java %}
 private static void getEatableFruits(Consumer<Eatable> eatableConsumer) {
@@ -167,9 +167,11 @@ eatableConsumerCovariant = appleConsumer;
 getEatableFruitsCovariant(eatableConsumerCovariant);
 {% endhighlight %}  
 
-Do you see the problem? Since we have declared that the `Consumer` is covariant on `Eatable` we have said that `Consumer<Apple>` is a subtype of `Consumer<Eatable>`. If that is the case we can (according to [LSP]) replace a `Consumer<Eatable>` with a `Consumer<Apple>`. Since an `Orange` also is a subtype of `Eatable` it is totally ok to feed the `Consumer<? extends Eatable>` with an `Orange`, which is the core of the problem. 
+Do you see the problem? Since we have declared that the `Consumer` is covariant on `Eatable` we have said that `Consumer<Apple>` is a subtype of `Consumer<Eatable>`. If that is the case we can (according to [LSP]) replace a `Consumer<Eatable>` with a `Consumer<Apple>`. 
 
-The client is free to use a `Consumer<Apple>` when calling `getEatableFruitsCovariant` but at the same time `getEatableFruitsCovariant` is free to call the `Consumer<? exends Eatable>` with an `Orange`. But an `Orange` doesn't have the `removeAppleCore` that we later calls in `Consumer<Apple>`!  
+Since an `Orange` also is a subtype of `Eatable` it is totally ok to feed the `Consumer<? extends Eatable>` with an `Orange`, which is the core of the problem. 
+
+So, the client is free to use a `Consumer<Apple>` when calling `getEatableFruitsCovariant` but at the same time `getEatableFruitsCovariant` is free to call the `Consumer<? exends Eatable>` with an `Orange`. But an `Orange` doesn't have the `removeAppleCore` that we later calls in `Consumer<Apple>`!  
 
 We fought the law and the law won ([LSP] that is).
 
