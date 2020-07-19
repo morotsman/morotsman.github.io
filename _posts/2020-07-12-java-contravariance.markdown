@@ -249,9 +249,9 @@ This boils down to some requirements on the type signature:
 > * Covariance of return types in the subtype.
 > * No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype. 
 
-So why should the method arguments be contravariant in the subtypes? Because we get a more flexible API (no copy/paste) and it is safe for the client to use.
-
-In our example above we can according to [LSP] declare `Consumer<Eatable>` to be contravariant on `Eatable` which leads to that `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. This since `Eatable` in this case is an in argument.
+In our example we declared `Consumer<Eatable>` to be contravariant on `Eatable` (the in argument) which lead to that `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`.
+    
+We observed that this is a safe thing to do and that we get a more flexible API. 
     
 The code examples are available at [github].
 
