@@ -70,7 +70,7 @@ class Apple implements Eatable {
 
 ## A more flexible signature?
 
-We will use the generic type Consumer as our test vehicle:  
+We will use the generic type `Consumer` as our test vehicle:  
 
 {% highlight java %}
 @FunctionalInterface
@@ -85,7 +85,7 @@ public interface Consumer<T> {
 }
 {% endhighlight %}
 
-The Consumer interface was introduced in Java 8 when Java got support for lambdas and is used like so:
+The `Consumer` interface was introduced in Java 8 when Java got support for lambdas and is used like so:
 
 {% highlight java %}
 Consumer<Apple> myConsumer = new Consumer<Apple>() {
@@ -105,7 +105,7 @@ Consumer<Apple> myConsumer2 = a -> System.out.println("I like: " + a.color() + "
 myConsumer2.accept(new Apple("Green"));
 {% endhighlight %}
 
-Ok, so let's say that you have implemented a function that supplies a Consumer with an Eatable fruit:
+Ok, so let's say that you have implemented a function that supplies a `Consumer` with an `Eatable` fruit:
 
 {% highlight java %}
 private static void getEatableFruits(Consumer<Eatable> eatableConsumer) {
@@ -113,9 +113,9 @@ private static void getEatableFruits(Consumer<Eatable> eatableConsumer) {
 }
 {% endhighlight %}
 
-After we have sent a Consumer to the getEatableFruits operation it is supplied a nice eatable fruit of unspecified kind. 
+After we have sent a `Consumer` to the getEatableFruits operation it is supplied a nice `Eatable` fruit of unspecified kind. 
 
-Armed with the knowledge from the my previous post about [covariance] we know that this is probably not the most flexible signature  that is possible. Could we use covariance?
+Armed with the knowledge from the my previous post about [covariance] we know that this is probably not the most flexible signature that is possible. Could we use covariance?
 
 ## Covariance to the rescue?
 
@@ -132,7 +132,7 @@ eatableConsumerCovariant = appleConsumer;
 getEatableFruitsCovariant(eatableConsumerCovariant);
 {% endhighlight %}
 
-This looks amazing and it is also much more flexible! Now we only have to implement the getEatableFruitsCovariant and we are done! It goes like this: 
+This looks amazing and it is also much more flexible! Now we only have to implement `getEatableFruitsCovariant` and we are done! It goes like this: 
 
 {% highlight java %}
 private static void getEatableFruitsCovariant(Consumer<? extends Eatable> eatableConsumer) {
@@ -145,7 +145,7 @@ private static void getEatableFruitsCovariant(Consumer<? extends Eatable> eatabl
 
 **Wait! What! Why?**
 
-Well, it turns out that it is not safe to declare a Consumer to be covariant on `Eatable`. Why is that?
+Well, it turns out that it is not safe to declare a `Consumer` to be covariant on `Eatable`. Why is that?
 
 Let's pretend for a moment that we did not get a compile error in the example above! If a `Consumer` is declared to be covariant it would be ok to call it like this:
 
@@ -228,11 +228,11 @@ Still no complaints from the compiler! We have found the flexible signature for 
   
 Well, we have to look at what is given to the `Consumer` and what the consumer expects. We have stated that a `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. 
 
-We know that the type of what we give to the `Consumer` in this case always will be at least an `Eatable` or a subtype of `Eatable` (like `Apple`).
+We know that the type of what we give to the `Consumer` in this case always will be an `Eatable` or a subtype of `Eatable` (for example an `Apple`).
 
 So the `Consumer<Eatable>` in this case will be given at least an `Eatable` which is no problem since it assumes that this is the case, it is not possible for it to use methods on for example `Apple`.
 
-What about `Consumer<Fruit>`? It will also be given at least an `Eatable` but it assumes even less than `Consumer<Eatable>`, it assumes that it is given a `Fruit`. Since it only uses methods on `Fruit` it is quite safe to send an `Eatable` to it since `Eatable` is a subtype of `Fruit` and hence must support all operations on `Fruit`. 
+What about `Consumer<Fruit>`? It will also be given at least an `Eatable` but it assumes even less than `Consumer<Eatable>`, it assumes that it is given a `Fruit`. Since it only uses methods on `Fruit` it is quite safe to send an `Eatable` (or a subtype of `Eatable`) to it since `Eatable` is a subtype of `Fruit` and hence must support all operations on `Fruit`. 
 
 All is well!    
 
