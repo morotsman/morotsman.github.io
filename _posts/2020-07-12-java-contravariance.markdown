@@ -203,6 +203,14 @@ private static void getEatableFruitsContravariant(Consumer<? super Eatable> eata
 
 	Apple apple = new Apple("Red");
 	eatableConsumer.accept(apple); 
+	
+	Fruit fruit = new Fruit() {
+    	@Override
+    	public String color() {
+    		return "Red";
+    	}
+    };
+    // eatableConsumer.accept(fruit); // will not compile
 }
 {% endhighlight %}
 
@@ -245,11 +253,11 @@ So why should the method arguments be contravariant in the subtypes? Because we 
 
 In our example above we can according to [LSP] declare `Consumer<Eatable>` to be contravariant on `Eatable` which leads to that `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. This since `Eatable` in this case is an in argument.
     
-
+The code examples are available at [github].
 
 [covariance]: https://morotsman.github.io/java,/covariance,/the/liskov/substitution/principle/2020/07/12/java-covariance.html
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
 [DRY]: https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 [generic types]: https://docs.oracle.com/javase/tutorial/java/generics/types.html
-[github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/covariance
+[github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/contravariance
 [exceptions]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
