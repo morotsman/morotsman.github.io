@@ -39,7 +39,7 @@ interface Fruit {
 }
 {% endhighlight %}
 
-A concrete implementation of the Fruit interface could look like so:
+A concrete implementation of the `Fruit` interface could look like so:
 
 {% highlight Ruby %}
 data class Apple(override val color: String, override val weightInGrams: Int) : Fruit {
@@ -51,7 +51,7 @@ data class Orange(override val color: String, override val weightInGrams: Int) :
 }
 {% endhighlight %}
 
-You decide to implement a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The Person object functions as an aggregator.
+You decide to implement a calculator so that the customer can calculate the number of fruits and calories consumed during the day. The `Person` object functions as an aggregator.
 
 {% highlight Ruby %}
 data class Person(
@@ -89,7 +89,7 @@ println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 
 Ackee is a fruit, however it is poisonous if it is not prepared in the correct way. Since it's used for medical purposes it could still be that you sell it in the store. 
 
-So it could be that we implement the Fruit api like this for Ackee (no need to calculate the calories since it should not be eaten):
+So it could be that we implement the `Fruit` api like this for `Ackee` (no need to calculate the calories since it should not be eaten):
 
 {% highlight Ruby %}
 data class Ackee(override val color: String, override val weightInGrams: Int) : Fruit {
@@ -97,7 +97,7 @@ data class Ackee(override val color: String, override val weightInGrams: Int) : 
 }
 {% endhighlight %}
 
-If we by mistake consumes an Ackee fruit and then try to calculate our daily intake of calories we get the following result:
+If we by mistake consumes an `Ackee` fruit and then try to calculate our daily intake of calories we get the following result:
 
 {% highlight Ruby %}
 val consumedFruits = listOf(
@@ -119,11 +119,11 @@ One could argue that getting an Exception is the least of our problems at the mo
 As mentioned above the Liskov Substitution Principle [LSP] states that: 
 > Substitutability is a principle in object-oriented programming stating that, in a computer program, if S is a subtype of T, then objects of type T may be replaced with objects of type S (i.e. an object of type T may be substituted with any object of a subtype S) without altering any of the desirable properties of the program (correctness, task performed, etc.)
 
-In this case we introduced an Exception in one of the subtypes (Ackee) which causes our calculator to crash, i.e. breaking the law.
+In this case we introduced an `Exception` in one of the subtypes (`Ackee`) which causes our calculator to crash, i.e. breaking the law.
 
 ## Alternative design
 
-So how could we avoid the problem? Lets introduce a new interface called EatableFruit and move the calories function to it:
+So how could we avoid the problem? Lets introduce a new interface called `EatableFruit` and move the calories function to it:
 
 {% highlight kotlin %}
 interface Fruit {
@@ -182,7 +182,7 @@ val consumedFruits = listOf(
 println(caloriesAndWeightCalculator(Person("Niklas"), consumedFruits))
 {% endhighlight %}
 
-It no longer possible to send Ackee to the calculator since it is not an eatable fruit. 
+It no longer possible to send `Ackee` to the calculator since it is not an eatable fruit. 
 
 The code examples implemented in Kotlin are available at: [github]
 

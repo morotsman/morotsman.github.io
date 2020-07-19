@@ -85,15 +85,15 @@ List<Apple> listOfApple = new ArrayList<>(asList(new Apple("Red"), new Apple("Gr
 groupFruitByColor(listOfApple) // will not compile
 {% endhighlight %}
 
-But oh, here comes trouble, the compiler tells us that it expects a list of fruit, not a list of apple. 
+But oh, here comes trouble, the compiler tells us that it expects a `List<Fruit>`, not a `List<Apple>`. 
 
 Or in the words of Gandalf:
 
 ![You shall not pass](https://media.giphy.com/media/njYrp176NQsHS/giphy.gif)
 
-But why you may ask? After all it looks totally safe to send in a list of apples to method that expect a list of fruit, this since an Apple is a subtype of Fruit and hence should support all the operations of fruit. 
+But why you may ask? After all it looks totally safe to send in a `List<Apple>` to method that expect a `List<Fruit>`, this since an `Apple` is a subtype of `Fruit` and hence should support all the operations of `Fruit`. 
 
-The operation used by groupFruitByColor for example is color and we know that all subtypes of Fruit (i.e. Apple and Orange) must implement this method. 
+The operation used by `groupFruitByColor` for example is color and we know that all subtypes of `Fruit` (i.e. `Apple` and `Orange`) must implement this method. 
 
 One way of solving the problem would be to use that old copy/paste trick:
 
@@ -114,7 +114,7 @@ But this violates the [DRY] principle, so what to do, what to do?
 
 ## Covariance to the rescue
 
-So how can we convince the compiler that it's safe to call groupFruitByColor with a list of apple? Well, we could use [covariance]!
+So how can we convince the compiler that it's safe to call `groupFruitByColor` with a `List<Apple>`? Well, we could use [covariance]!
 
 Covariance is declared like this in Java:
 
@@ -147,9 +147,9 @@ Apple apple = new Apple("Red");
 fruit = apple;
 {% endhighlight %}
 
-It's safe to assign an Apple to a Fruit variable since all operations of the supertype (Fruit) must be supported by the subtype (Apple).
+It's safe to assign an `Apple` to a `Fruit` variable since all operations of the supertype (`Fruit`) must be supported by the subtype (`Apple`).
 
-But if we do the same to a list of fruits and a list of apples, the compiler complains.
+But if we do the same to a `List<Fruit>` and a `List<Apple>`, the compiler complains.
 
 {% highlight java %}
 List<Fruit> fruits;
@@ -157,7 +157,7 @@ List<Apple> apples = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")
 fruits = apples; // will not compile 
 {% endhighlight %}
 
-The reason for this is that [generic types]: like List, Optional or Set is by the default invariant in Java. By that we mean that List of Apple is not a subtype of List of Fruit. So if we want List of Apple to be a subtype of List of Fruit (or covariant) we must override the default behaviour like this:
+The reason for this is that [generic types]: like `List`, `Optional` or `Set` is by the default invariant in Java. By that we mean that `List<Apple>` is not a subtype of `List<Fruit>`. So if we want `List<Apple>` to be a subtype of `List<Fruit>` (i.e. to be covariant on `Fruit`) we must override the default behaviour like this:
 
 {% highlight java %}
 List<? extends Fruit> fruitsCovariant;
@@ -165,16 +165,16 @@ fruitsCovariant = apples;
 Fruit someFruit = fruitsCovariant.get(0);
 {% endhighlight %} 
 
-Even if fruitsCovariant in the example above in reality is a list of apples it is safe to use for the client to use since Apple supports all operations of Fruit. We have made fruitsCovariant covariant on Fruit. 
+Even if `fruitsCovariant` in the example above in reality is a `List<Apple>` it is safe to use for the client to use since `Apple` supports all operations of `Fruit`. We have made `fruitsCovariant` covariant on `Fruit`. 
 
 So what is [covariance]? Well, it's defined like this on wikipedia:
 
 > Within the type system of a programming language, a typing rule or a type constructor is:
 > * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic;
 
-In our case we preserve the ordering of types since: Fruit is the supertype of Apple and we have declared the List of Fruit (fruitsCovariant) to be the supertype of all lists that contains Fruit or any subtype of Fruit (like List of Apple). This means that we have fulfilled the definition of something that is covariant. 
+In our case we preserve the ordering of types since: `Fruit` is the supertype of `Apple` and we have declared the `List<Fruit>` (`fruitsCovariant`) to be the supertype of all lists that contains `Fruit` or any subtype of `Fruit` (for example `List<Apple>`). This means that we have fulfilled the definition of something that is covariant. 
 
-So why is not a List covariant by default in Java, after all this looks like the desired behaviour?
+So why is not a `List` covariant by default in Java, after all this looks like the desired behaviour?
 
 ## The perils of mutability
 
@@ -199,19 +199,19 @@ What happens if we do the following:
 arrayOfFruit[0] = new Orange();
 {% endhighlight %} 
 
-Well, the compiler don't complain, it's ok to insert an Orange in an array of Fruit, this since an Orange is a subtype of Fruit. But if I do the following: 
+Well, the compiler don't complain, it's ok to insert an `Orange` in an array of `Fruit`, this since an `Orange` is a subtype of `Fruit`. But if we do the following: 
 
 {% highlight java %}
 arrayOfApple[0] = new Orange();
 {% endhighlight %} 
 
-I get an error by the compiler since an Orange is not a subtype of Apple, how does that add up? Well it don't, the array in Java is broken and it's very possible to make a fool of the compiler. The enemy is past the gate and we ends up with a run time exception: ArrayStoreException.
+We get an error by the compiler since an `Orange` is not a subtype of `Apple`, how does that add up? Well it don't, the array in Java is broken and it's very possible to make a fool of the compiler. The enemy is past the gate and we ends up with a run time exception: `ArrayStoreException`.
 
 ![Gandalf sad](https://media.giphy.com/media/oM5xTkZM5N1ZK/giphy.gif)
 
-But why did we end up in trouble? Well the reason was that the array is mutable, i.e. it can be modified after it is created. In this case the fact that arrayOfFruit and arrayOfApple references the same data structure, coupled with the fact that an array is mutable leads to disaster. 
+But why did we end up in trouble? Well the reason was that the array is mutable, i.e. it can be modified after it is created. In this case the fact that `arrayOfFruit` and `arrayOfApple` references the same data structure, coupled with the fact that an array is mutable leads to disaster. 
 
-So have we introduced the same problem when making our List of fruit covariant? Well yes and no, we would have if the compiler let us add or update an element in the List, but does it?
+So have we introduced the same problem when making our List of `Fruit` covariant? Well yes and no, we would have if the compiler let us add or update an element in the List, but does it?
 
 {% highlight java %}
 List<? extends Fruit> listOfFruitCovariant = new ArrayList<>(asList(new Apple("Red"), new Apple("Green")));
@@ -230,7 +230,7 @@ No, we have not! The downside(?) is that we can only read from the covariant arr
 
 ## Another example
 
-Let us investigate how another another generic type behaves in regard of covariance: the Supplier. Also since it looks like I have captured your interest I will skip the GIF's in the rest of this post, on the other hand feel free to skip the rest of the post if the GIF's was what captured your interest. 
+Let us investigate how another another generic type behaves in regard of covariance: the `Supplier`. Also since it looks like I have captured your interest I will skip the GIF's in the rest of this post, on the other hand feel free to skip the rest of the post if the GIF's was what captured your interest. 
 
 {% highlight java %}
 @FunctionalInterface
@@ -245,7 +245,7 @@ public interface Supplier<T> {
 }
 {% endhighlight %}
 
-The Supplier interface was introduced in Java 8 when Java got support for lambdas and is used like so:
+The `Supplier` interface was introduced in Java 8 when Java got support for lambdas and is used like so:
 
 {% highlight java %}
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
@@ -272,7 +272,7 @@ private static void printColorOfFruit(Fruit fruit) {
 }
 {% endhighlight %}
 
-printColorOfFruit can be invoked like this:
+`printColorOfFruit` can be invoked like this:
 
 {% highlight java %}
 Supplier<Fruit> supplierOfFruit = new Supplier<Fruit>() {
@@ -286,7 +286,7 @@ Supplier<Fruit> supplierOfFruit = new Supplier<Fruit>() {
 printColorOfFruit(() -> new Apple("Red"));
 {% endhighlight %}
 
-But what if we would like to call printColorOfFruit with a supplier of Apple, after all this should be safe since an Apple is a subtype of Fruit and must support all operations of Fruit.
+But what if we would like to call `printColorOfFruit` with a `Supplier<Apple>`? After all this should be safe since an `Apple` is a subtype of `Fruit` and must support all operations of Fruit.
 
 {% highlight java %}
 Supplier<Apple> supplierOfApple = () -> new Apple("Green");
@@ -315,7 +315,7 @@ printColorOfFruitCovariant(supplierOfFruit);
 printColorOfFruitCovariant(supplierOfApple);
 {% endhighlight %}
 
-This works since by declaring the Supplier as covariant in Fruit we have turned the Supplier of Apple to a subtype of a Supplier of Fruit.
+This works since by declaring the `Supplier` as covariant in `Fruit` we have turned the `Supplier<Apple>` to a subtype of a `Supplier<Fruit>`.
 
 {% highlight java %}
 Supplier<? extends Fruit> supplierOfFruitCovariant;
@@ -342,9 +342,9 @@ supplierOfFruitCovariant = supplierOfApple; // supplierOfApple is now a subtype
 Fruit fruit = supplierOfFruitCovariant.get();
 {% endhighlight %}
 
-In the code above it is always safe for the client to call supplierOfFruitCovariant. The return type in this case is Fruit which we have declared covariant as instructed by Liskov.
+In the code above it is always safe for the client to call `supplierOfFruitCovariant`. The return type in this case is `Fruit` which we have declared covariant as instructed by Liskov.
 
-And why is it safe? It is safe since the client expects that a Fruit is returned by supplierOfFruitCovariant, in the reality the client gets an Apple, but that doesn't matter since an Apple is a subtype of Fruit and hence safe to use for the client.
+And why is it safe? It is safe since the client expects that a `Fruit` is returned by supplierOfFruitCovariant. In the reality the client gets an `Apple`, but that doesn't matter since an `Apple` is a subtype of `Fruit` and hence safe to use for the client.
 
 The same goes for our covariant list of fruit:
 
@@ -355,7 +355,7 @@ fruitsCovariant = apples;
 Fruit someFruit = fruitsCovariant.get(0);
 {% endhighlight %} 
 
-The client expects a list of fruit, it could not care less if in reality it gets a list of Apples or a list of Oranges (or a mix) since it only uses operations supported by Fruit which in turn must be supported by the subtypes of Fruit (Apple and Orange).  
+The client expects a `List<Fruit>`, it could not care less if in reality it gets a `List<Apple>` or a `List<Orange>` (or a mix) since it only uses operations supported by `Fruit` which in turn must be supported by the subtypes of `Fruit` (`Apple` and `Orange`).  
 
 ## A final example
 
@@ -398,7 +398,7 @@ class OrangeJoice implements Joice {
 }
 {% endhighlight %} 
 
-In the code above we are covariant in the return type of the getJoice method in OrangeCovariant which is a subtype of FruitCovariant, i.e. a direct translation of "Covariance of return types in the subtype.". Once again it is quite safe for the for a client of FruitCovariant to use getJoice since it will get a Fruit or a subtype of Fruit in return. 
+In the code above we are covariant in the return type of the `getJoice` method in `OrangeCovariant` which is a subtype of `FruitCovariant`, i.e. a direct translation of "Covariance of return types in the subtype". Once again it is quite safe for the for a client of `FruitCovariant` to use `getJoice` since it will get a `Fruit` or a subtype of `Fruit` in return. 
 
 The code examples are available at [github].
 
