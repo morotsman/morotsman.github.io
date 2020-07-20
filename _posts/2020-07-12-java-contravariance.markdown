@@ -270,4 +270,4 @@ The code examples are available at [github].
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/contravariance
 [exceptions]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
 [contravariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
-[wikipedia]: https://morotsman.github.io/java/contravariance/the/liskov/substitution/principle/2020/07/17/java-contravariance.html
+[wikipedia]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
