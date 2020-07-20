@@ -167,7 +167,7 @@ Fruit someFruit = fruitsCovariant.get(0);
 
 Even if `fruitsCovariant` in the example above in reality is a `List<Apple>` it is safe to use for the client to use since `Apple` supports all operations of `Fruit`. We have made `fruitsCovariant` covariant on `Fruit`. 
 
-So what is [covariance]? Well, it's defined like this on wikipedia:
+So what is [covariance]? Well, it's defined like this on [wikipedia]:
 
 > Within the type system of a programming language, a typing rule or a type constructor is:
 > * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic
@@ -411,3 +411,4 @@ The code examples are available at [github].
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/covariance
 [contravariance]: https://morotsman.github.io/java/contravariance/the/liskov/substitution/principle/2020/07/17/java-contravariance.html
 [exceptions]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
+[wikipedia]: https://morotsman.github.io/java/contravariance/the/liskov/substitution/principle/2020/07/17/java-contravariance.html
