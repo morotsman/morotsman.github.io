@@ -170,7 +170,8 @@ Even if `fruitsCovariant` in the example above in reality is a `List<Apple>` it 
 So what is [covariance]? Well, it's defined like this on wikipedia:
 
 > Within the type system of a programming language, a typing rule or a type constructor is:
-> * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic;
+> * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic
+> * contravariant if it reverses this ordering
 
 In our case we preserve the ordering of types since: `Fruit` is the supertype of `Apple` and we have declared the `List<Fruit>` (`fruitsCovariant`) to be the supertype of all lists that contains `Fruit` or any subtype of `Fruit` (for example `List<Apple>`). This means that we have fulfilled the definition of something that is covariant. 
 

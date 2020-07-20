@@ -182,7 +182,15 @@ It is clear that we can't declare a `Consumer<Apple>` to be a subtype of `Consum
 
 ## Contravariance to the rescue
 
-Ok, so what can we do? We can use contravariance! When using contravariance we goes in the other direction when subtyping. So if an `Eatable` is a subtype if `Fruit` then a `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`. It looks like this in Java:
+Ok, so what can we do? We can use [contravariance]! When using contravariance we goes in the other direction when subtyping. So if an `Eatable` is a subtype if `Fruit` then a `Consumer<Fruit>` is a subtype of `Consumer<Eatable>`.
+
+It's defined like this on wikipedia:
+
+> Within the type system of a programming language, a typing rule or a type constructor is:
+> * covariant if it preserves the ordering of types (≤), which orders types from more specific to more generic;
+> * contravariant if it reverses this ordering
+
+In Java that looks like this:
 
 {% highlight java %}
 Fruit fruit;
@@ -261,3 +269,4 @@ The code examples are available at [github].
 [generic types]: https://docs.oracle.com/javase/tutorial/java/generics/types.html
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/generics/java/contravariance
 [exceptions]: https://morotsman.github.io/the/liskov/substitution/principle/2020/07/05/breaking-the-law.html
+[contravariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
