@@ -2,7 +2,7 @@
 layout: post
 title:  "Compose functions with Scalaz Kleisli"
 date:   2020-07-28 09:40:00 +0200
-categories: Scala Scalaz Kleisli Example
+categories: Scala Scalaz Kleisli Example    
 ---
 
 ## About the post
@@ -52,7 +52,7 @@ val composedFunction: Int => Int = addOne _ andThen double
 assert(42 == composedFunction(20))
 {% endhighlight %}
 
-This is called functional composition, i.e. we compose a new function `composedFunction` from `addOne` and `double`.
+This is called functional composition, i.e. we compose a new function `composedFunction` from the existing `addOne` and `double` functions.
 
 Here's another example:
 
