@@ -198,6 +198,8 @@ Looks like `flatMap` to me!
 
 By the way, since `Bind` only accepts constructs with one type parameter and `Either[+A, +B]` has two, we have to partially apply one of the type parameters like this: `[({type f[x] = Either[String, x]})#f]`. The syntax for this in Scala could be better :-).
 
+![Syntax error](https://media.giphy.com/media/ifdPjn6m4WyNlnXMTj/giphy.gif)
+
 Ok, so now that we knows what `bind` does let's take a look at `>=>` again:
 
 {% highlight scala %}
