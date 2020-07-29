@@ -256,7 +256,7 @@ And that's it, this is the basics of Kleisli, it is nothing but a construction t
 
 We have shown that Kleisli can be used to compose functions when the result from the function invokation is Monadic. We have also investigated the Scalaz code that makes this work. 
 
-We have concluded that we can get the same effect using `flatMap` but with a more concise syntax:
+We have concluded that we can get the same effect using `flatMap` but with a less concise syntax:
 
 {% highlight scala %}
 val personValidator = Kleisli(nameValidator) >==> salaryValidator >==> cityValidator
