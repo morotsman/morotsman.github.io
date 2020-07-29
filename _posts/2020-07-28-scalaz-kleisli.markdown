@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Compose functions with Scalaz Kleisli"
-date:   2020-07-18 09:40:00 +0200
+date:   2020-07-28 09:40:00 +0200
 categories: Scala Scalaz Kleisli Example
 ---
 
