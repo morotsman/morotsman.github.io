@@ -124,7 +124,7 @@ val validator3 = Kleisli(nameValidator) >==> salaryValidator >==> cityValidator
 
 ## What about flatMap?
 
-Yes, flatMap can be used for the same effect like this:
+Yes, flatMap can be used to the same effect like this:
 
 {% highlight scala %}
 def personValidatorWithFlatMap(p: Person): Either[String, Person] =
@@ -211,32 +211,63 @@ We can see that it creates a new Kleisli with a function that will do a flatMap 
 
 Maybe a concrete example is in place:
 
-{% highlight scala %} 
-val validator = Kleisli(nameValidator) >=> Kleisli(salaryValidator)
-{% endhighlight %} 
-
-If we do some substitutions this corresponds to:
-
 {% highlight scala %}
-val b = implicitly[Bind[({type f[x] = Either[String, x]})#f]]
+Kleisli(nameValidator) >=> Kleisli(salaryValidator)
 
-val substitutedValidator = Kleisli((a: Person) => b.bind(Kleisli(nameValidator)(a))(Kleisli(salaryValidator).run))
+//can be simplified to
+Kleisli((a: Person) => b.bind(Kleisli(nameValidator)(a))(Kleisli(salaryValidator).run))
+
+//can be simplified to
+Kleisli((a: Person) => b.bind(nameValidator(a))(salaryValidator))
+
 {% endhighlight %}  
 
-We can then call substitutedValidator in the usual way:
+If we further substitutes `a` (i.e. invokes the Kleisli) with validPerson we get:
+
 {% highlight scala %}
-assert(Right(validPerson) == substitutedValidator(validPerson))
-    
-assert(Left("Name failed the validation") == substitutedValidator(invalidPerson))
+b.bind(nameValidator(validPerson))(salaryValidator)
+
+//can be simplified to
+b.bind(Right(validPerson))(salaryValidator)
+
+//can be simplified to
+Right(validPerson)
 {% endhighlight %}  
 
 In other words we are essentially building a chain of flatMap's.
+
+Finally i would like to highligt: 
+
+{% highlight scala %}
+def >==>[C](k: B => M[C])(implicit b: Bind[M]): Kleisli[M, A, C] = this >=> kleisli(k)
+{% endhighlight %} 
+
+As we can see the only thing it does is to wrap the in argument in a Kleisli and the call `>=>`.  
+
+This gives us the ability (as already shown above) to compose a function using this simple syntax:
+
+{% highlight scala %}
+Kleisli(nameValidator) >==> salaryValidator >==> cityValidator
+{% endhighlight %} 
 
 And that's it, this is the basics of Kleisli, it is nothing but a construction to get the ability to compose functions!
 
 ## Conclusion
 
-We have shown that Kleisli can be used to compose functions where the result is Monadic. We have also investigated the Scalaz code that makes this work. In the next post we will use Kleisli to provide nice syntax for a small validaton framework.  
+We have shown that Kleisli can be used to compose functions when the result from the function invokation is Monadic. We have also investigated the Scalaz code that makes this work. 
+
+We have concluded that we can get the same effect using `flatMap` but with a more concise syntax:
+
+{% highlight scala %}
+val personValidator = Kleisli(nameValidator) >==> salaryValidator >==> cityValidator
+
+// is the same as: 
+
+def personValidatorWithFlatMap(p: Person): Either[String, Person] =
+    nameValidator(p).flatMap(salaryValidator).flatMap(cityValidator)
+{% endhighlight %} 
+
+In the next post we will use Kleisli to provide nice syntax for a small validaton framework.  
 
 
 ## Github
