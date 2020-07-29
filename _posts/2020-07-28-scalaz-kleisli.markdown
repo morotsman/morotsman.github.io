@@ -191,6 +191,7 @@ So it looks like the signature for `bind` corresponds to the signature of `flatM
 val b = implicitly[Bind[({type f[x] = Either[String, x]})#f]]
 
 assert(Right(2) == b.bind(Right(1))(i => Right(i + 1)))
+assert(Left("failure") == b.bind(Left("failure"): Either[String, Int])(i => Right(i + 1)))
 {% endhighlight %}
 
 Looks like `flatMap` to me! 
