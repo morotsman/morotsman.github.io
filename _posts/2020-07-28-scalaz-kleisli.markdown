@@ -9,7 +9,7 @@ categories: Scala Scalaz Kleisli Example
 
 This is the first post in a series of three(?) about Scalaz's Kleisli construction. 
 
-This post will cover the basic usage of Kleisli. A yet to be written post will provide an extended example where we use Klesli to provide nice syntax for a small validation framework. Another yet to be written post will cover different operators that is defined on Kleisli. 
+This post will cover the basic usage of Kleisli. A yet to be written post will cover different operators that are defined on Kleisli. 
 
 First a caveat: I'm not a seasoned Scalaz developer with years and years of experience. This post represents my current understanding of the topic. Feel free to drop me a mail if you have suggestions for improvements so I can learn more!
 
@@ -267,8 +267,7 @@ def personValidatorWithFlatMap(p: Person): Either[String, Person] =
     nameValidator(p).flatMap(salaryValidator).flatMap(cityValidator)
 {% endhighlight %} 
 
-In the next post we will use Kleisli to provide nice syntax for a small validaton framework.  
-
+In the next post which is yet to be written we will investigate different operators that are defined on Kleisli.
 
 ## Github
 The code examples are available at [github].
