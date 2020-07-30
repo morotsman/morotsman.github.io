@@ -275,4 +275,4 @@ The code examples are available at [github].
 [Monadic]: https://en.wikipedia.org/wiki/Monad_(functional_programming) 
 [Kleisli]: https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/Kleisli.scala
 [library]: https://github.com/scalaz/scalaz/blob/series/7.1.x/core/src/main/scala/scalaz/Kleisli.scala
-[github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/scalaz/kleisli_usage
+[github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/scalaz_experiments/kleisli_usage
