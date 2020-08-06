@@ -3,5 +3,4 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-background: '/img/fruits_grouped_by_color.jpeg'
 ---

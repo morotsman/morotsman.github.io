@@ -2,7 +2,6 @@
 layout: page
 title: About
 permalink: /about/
-background: '/img/fruits_grouped_by_color.jpeg'
 ---
 
 A general blog about software development. Feel free to contact me throught mail at leopold.niklas@gmail.com or on [linkedin] if you have any comments or feedback.

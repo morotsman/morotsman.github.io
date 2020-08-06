@@ -27,7 +27,7 @@ linkedin_username: niklas-leopold-a359293
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-clean-blog
+theme: minima
 paginate:           10
 paginate_path:      "/posts/page:num/"
 plugins:
