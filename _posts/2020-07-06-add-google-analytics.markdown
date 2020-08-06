@@ -6,12 +6,13 @@ categories: blog, Google Analytics, Jekyll, Github pages
 subtitle: How to find out that no one is reading your blog posts
 ---
 
-![Alt Text](https://media.giphy.com/media/cRLhKFCmCfMFQmzHjd/giphy.gif)
+
 
 So I decided to add Google analytics to my blog and now I can blog about it, so very meta of me :-)
 
 The blog is hosted by Github Pages using Jekyll by the way.
 
+![Alt Text](https://media.giphy.com/media/cRLhKFCmCfMFQmzHjd/giphy.gif)
 
 ## Get Google Analytics account
 
