@@ -3,6 +3,7 @@ layout: post
 title:  "Contravariance and the Liskov Substitution Principle"
 date:   2020-07-17 09:40:00 +0200
 categories: Java Contravariance The Liskov Substitution Principle
+subtitle: Covariance and now Contravariance, do I really need to know this?
 ---
 
 ## About the post

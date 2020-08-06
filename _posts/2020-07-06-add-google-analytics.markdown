@@ -3,6 +3,7 @@ layout: post
 title:  "How to add Google Analytics to a blog hosted on Github pages"
 date:   2020-07-07 10:44:33 +0200
 categories: blog, Google Analytics, Jekyll, Github pages
+subtitle: How to find out that no one is reading your blog posts
 ---
 
 ![Alt Text](https://media.giphy.com/media/cRLhKFCmCfMFQmzHjd/giphy.gif)

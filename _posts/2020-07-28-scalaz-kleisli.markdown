@@ -2,12 +2,13 @@
 layout: post
 title:  "Compose functions with Scalaz Kleisli"
 date:   2020-07-28 09:40:00 +0200
-categories: Scala Scalaz Kleisli Example    
+categories: Scala Scalaz Kleisli Example
+subtitle: What on earth is an Kleisli and could I use it for something?  
 ---
 
 ## About the post
 
-This is the first post in a series of three(?) about Scalaz's Kleisli construction. 
+This is the first post in a series of two(?) about Scalaz's Kleisli construction. 
 
 This post will cover the basic usage of Kleisli. A yet to be written post will cover different operators that are defined on Kleisli. 
 

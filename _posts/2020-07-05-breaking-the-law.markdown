@@ -3,6 +3,7 @@ layout: post
 title:  "Breaking the Law - Violating the Liskov Substitution Principle by throwing a new Exception in a Derived class"
 date:   2020-07-05 10:44:33 +0200
 categories: The Liskov Substitution Principle
+subtitle: Being naughty when subclassing 
 ---
 
 ## About the post
