@@ -3,7 +3,8 @@ layout: post
 title:  "Creating our own Applicative using Scalaz"
 date:   2020-08-04 09:09:00 +0200
 categories: Scala Scalaz Applicative Example
-subtitle: What is an Applicative used for and how can I create one for my own data type?   
+subtitle: What is an Applicative used for and how can I create one for my own data type?  
+background: '/img/new_york9.jpg'  
 ---
 
 ## About the post
