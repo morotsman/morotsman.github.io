@@ -4,6 +4,7 @@ title:  "Covariance and the Liskov Substitution Principle"
 date:   2020-07-12 10:44:33 +0200
 categories: Java, Covariance, The Liskov Substitution Principle
 subtitle: Covariance? Is that useful?
+background: '/img/new_york7.jpg' 
 ---
 
 ## About the post
