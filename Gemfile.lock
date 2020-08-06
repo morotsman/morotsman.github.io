@@ -32,8 +32,6 @@ GEM
     jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
-    jekyll-seo-tag (2.6.1)
-      jekyll (>= 3.3, < 5.0)
     jekyll-sitemap (1.4.0)
       jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
@@ -44,10 +42,6 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.3.6)
-    minima (2.5.1)
-      jekyll (>= 3.5, < 5.0)
-      jekyll-feed (~> 0.9)
-      jekyll-seo-tag (~> 2.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.5)
@@ -61,25 +55,16 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
-    thread_safe (0.3.6)
-    tzinfo (1.2.7)
-      thread_safe (~> 0.1)
-    tzinfo-data (1.2020.1)
-      tzinfo (>= 1.0.0)
-    wdm (0.1.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (~> 3.8.7)
+  jekyll (>= 3.8.5)
   jekyll-feed (~> 0.6)
   jekyll-paginate (~> 1.1.0)
   jekyll-sitemap
-  minima
-  tzinfo (~> 1.2)
   tzinfo-data
-  wdm (~> 0.1.0)
 
 BUNDLED WITH
    2.1.4
