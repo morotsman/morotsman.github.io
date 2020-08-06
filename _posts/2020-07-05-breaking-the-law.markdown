@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Breaking the Law - Violating the Liskov Substitution Principle by throwing a new Exception in a Derived class"
+subtitle: "because they lacked opposable thumbs and the brainpower to build a space program."
 date:   2020-07-05 10:44:33 +0200
 categories: The Liskov Substitution Principle
 ---
