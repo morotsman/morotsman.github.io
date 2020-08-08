@@ -391,7 +391,7 @@ So to sum up, sometimes it's better to use an `Applicative` then a `Monad` even 
 
 If we want all our calculations to run even if some fails then we should use an `Applicative` instead of a `Monad`.
 
-If we use the Scalaz library it's pretty easy to create our own `Monads` and `Applicatives`, as a by-product we also get access to all those nice operators that the people behinde Scalaz has implemented over the years!
+If we use the Scalaz library it's pretty easy to create our own `Monads` and `Applicatives`, as a by-product we also get access to all those nifty little operators that the people behinde Scalaz has implemented over the years!
 
 
 ## Github
