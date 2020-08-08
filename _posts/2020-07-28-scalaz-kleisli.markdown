@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Compose functions with Scalaz Kleisli"
+title: Kleisli you say? That sounds bad! Is it contagious?
 date:   2020-07-28 09:40:00 +0200
 categories: Scala Scalaz Kleisli Example
-subtitle: What on earth is a Kleisli and could I use it for something?  
+subtitle: "Composing functions with Scalaz Kleisli"  
 background: '/img/new_york8.jpg' 
 ---
 

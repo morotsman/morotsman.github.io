@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Contravariance and the Liskov Substitution Principle"
+title: Covariance and now Contravariance, do I really need to know this?
+subtitle: Contravariance and the Liskov Substitution Principle
 date:   2020-07-17 09:40:00 +0200
 categories: Java Contravariance The Liskov Substitution Principle
-subtitle: Covariance and now Contravariance, do I really need to know this?
 background: '/img/new_york6.jpg' 
 ---
 
@@ -247,7 +247,7 @@ What about `Consumer<Fruit>`? It will also be given at least an `Eatable` but it
 All is well!    
 
 
-## The Liskov Substitution Principle revisited
+## Conclusions
 
 The Liskov Substitution Principle [LSP] states that: 
 
