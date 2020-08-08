@@ -1,1 +1,1 @@
-Example code used on my blog: https://morotsman.github.io/
+My blog: https://morotsman.github.io/
