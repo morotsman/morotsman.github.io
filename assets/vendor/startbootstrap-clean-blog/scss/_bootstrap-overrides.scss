@@ -27,12 +27,7 @@
 }
 
 
-$brand-color:           #828282 !default;
-$brand-color-light:     lighten($brand-color, 40%) !default;
-$code-font-family: "Menlo", "Inconsolata", "Consolas", "Roboto Mono", "Ubuntu Mono", "Liberation Mono", "Courier New", monospace;
-$code-background-color: #eeeeff !default;
-$border-color-01:       $brand-color-light !default;
-$spacing-unit:     30px !default;
+
 
 /**
  * Code formatting
@@ -72,6 +67,25 @@ ul, ol, dl, figure,
 }
 
  */
+
+$code-background-color: #f8f8ff !default;
+$spacing-unit:     30px !default;
+
+p, blockquote, pre,
+ul, ol, dl, figure,
+%vertical-rhythm {
+  margin-bottom: $spacing-unit / 2;
+}
+
+.highlight {
+  border-radius: 3px;
+  background: $code-background-color;
+  @extend %vertical-rhythm;
+
+  .highlighter-rouge & {
+    background: $code-background-color;
+  }
+}
 
 .highlight {
   .c     { color: #998; font-style: italic } // Comment
