@@ -29,45 +29,6 @@
 
 
 
-/**
- * Code formatting
- */
-
-/*
-code {
-  padding: 1px 5px;
-}
-
-pre {
-  padding: 8px 12px;
-  overflow-x: auto;
-
-  > code {
-    border: 0;
-    padding-right: 0;
-    padding-left: 0;
-  }
-}
-
-h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
-ul, ol, dl, figure,
-%vertical-rhythm {
-  margin-bottom: $spacing-unit / 2;
-}
-
-.highlight {
-  border-radius: 3px;
-  background: $code-background-color;
-  @extend %vertical-rhythm;
-
-  .highlighter-rouge & {
-    background: $code-background-color;
-  }
-}
-
- */
-
 $code-background-color: #f8f8ff !default;
 $spacing-unit:     30px !default;
 
@@ -147,4 +108,28 @@ ul, ol, dl, figure,
   .vg    { color: #008080 } // Name.Variable.Global
   .vi    { color: #008080 } // Name.Variable.Instance
   .il    { color: #099 } // Literal.Number.Integer.Long
+}
+
+$brand-color:           #828282 !default;
+$brand-color-light:     lighten($brand-color, 40%) !default;
+$border-color-01:       $brand-color-light !default;
+
+@mixin relative-font-size($ratio) {
+  font-size: #{$ratio}rem;
+}
+
+blockquote {
+  color: $brand-color;
+  border-left: 4px solid $border-color-01;
+  padding-left: $spacing-unit / 2;
+  @include relative-font-size(1.125);
+  font-style: italic;
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+
+  i, em {
+    font-style: normal;
+  }
 }
