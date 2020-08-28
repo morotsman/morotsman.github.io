@@ -261,7 +261,7 @@ val expectedResult = List(
 expectedResult == result._1.out.reverse
 {% endhighlight %}
 
-The initialState contains the user input that we want to simulate. After the program has finished it's execution we get back a representation of the state instead contains the corresponding output. All very pure and immutable:
+The initialState contains the user input that we want to simulate. After the program has finished it's execution we get back a representation of the state that contains the corresponding output. All very pure and immutable:
 
 ![It's a wrap!](https://media.giphy.com/media/ZEIVY62QI6Hrc59GX1/giphy.gif)
 
