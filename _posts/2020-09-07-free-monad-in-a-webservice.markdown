@@ -342,6 +342,8 @@ object PromptAsyncIOInterpreter extends (IOA ~> ProgramResult) {
 }
 {% endhighlight %}
 
+Please note that we also commit ourselves to that the Free monad should be mapped to `ProgramResult` (just an alias for `Future`).
+
 Here is the compiler for the `RequestHandlerProgram`:
 
 {% highlight scala %}

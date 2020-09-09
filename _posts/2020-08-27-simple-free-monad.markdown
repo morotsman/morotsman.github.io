@@ -300,6 +300,9 @@ We have implemented a simple program using an algebra and the Free monad. A test
 
 We concluded that's it's pretty cool that the free monad let us defer our choice of the actual monad that will be used when running the program.  
 
+If you are not tired yet I have written another [post] with a larger example where we use the Free monad in the context of a CLI tool and then in a web service.
+
+
 ## Github
 The code examples are available at [github].
 
@@ -309,3 +312,4 @@ The code examples are available at [github].
 [algebra]: https://en.wikipedia.org/wiki/Algebraic_data_type
 [Functional programming in Scala]: https://www.manning.com/books/functional-programming-in-scala 
 [github]: https://github.com/morotsman/about_scala/blob/master/src/main/scala/scalaz_experiments/free_monad/echo/simple_echo/Echo.scala
+[post]: https://morotsman.github.io/scala/cats/free/monad/cli/webservice/2020/09/07/free-monad-in-a-webservice.html
