@@ -127,7 +127,7 @@ class Machine[F[_]](implicit I: InjectK[MachineOp, F]) {
 }
 {% endhighlight %} 
 
-If your curious about that inject thingy I suggest you read this [blog post] since it awesome.
+If you are curious about that inject thingy I suggest you read this [blog post] since it awesome.
 
 ## The CLI Candy Machine
 
