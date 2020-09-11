@@ -127,7 +127,7 @@ class Machine[F[_]](implicit I: InjectK[MachineOp, F]) {
 }
 {% endhighlight %} 
 
-
+If your curious about that inject thingy I suggest you read this [blog post] since it awesome.
 
 ## The CLI Candy Machine
 
@@ -506,3 +506,4 @@ All the code is available at [github].
 [here]: https://morotsman.github.io/scala/cats/free/monad/2020/08/27/simple-free-monad.html
 [github]: https://github.com/morotsman/about_scala/tree/master/src/main/scala/scalaz_experiments/free_monad/candy3
 [Akka Http]: https://doc.akka.io/docs/akka-http/current/index.html
+[blog post]: https://underscore.io/blog/posts/2017/03/29/free-inject.html
