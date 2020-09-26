@@ -129,6 +129,8 @@ class Machine[F[_]](implicit I: InjectK[MachineOp, F]) {
 
 If you are curious about that inject thingy I suggest you read this [blog post] since it awesome.
 
+![Awsome!](https://media.giphy.com/media/14sy6VGAd4BdKM/giphy.gif)
+
 ## The CLI Candy Machine
 
 Ok, so now we almost are ready to write our Cli candy program, but first let's define some helper types so that the function signatures becomes a little less verbose:
@@ -318,6 +320,8 @@ I also injects the `requestHandler` into the `CliCandyProgram`.
 ## What about tests for the CliProgram?
 
 Yes, you can find them at [github]. 
+
+![Awsome!](https://media.giphy.com/media/l3q2YLHpmkiq4kBmU/giphy.gif)
 
 ## The compilers
 
