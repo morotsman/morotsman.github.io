@@ -1,6 +1,6 @@
 ---
 layout: post
-date:   2020-09-26 09:09:00 +0200
+date:   2020-10-25 09:09:00 +0200
 categories: Agile Tests Automatic
 title: Good code going bad
 subtitle: Why I love automatic tests and you should do to
