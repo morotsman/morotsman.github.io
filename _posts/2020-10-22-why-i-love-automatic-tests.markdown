@@ -226,10 +226,6 @@ Write those tests and prosper!
 
 Happy coding!
 
-## Github
-
-All the code is available at [github].
-
 
 [Conway's law]: https://en.wikipedia.org/wiki/Conway%27s_law
 [whispering game]: https://en.wikipedia.org/wiki/Chinese_whispers
