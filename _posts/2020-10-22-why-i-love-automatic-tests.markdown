@@ -220,9 +220,11 @@ You will spend a lot of time writing tests, but on the other side you will spend
 
 ## Conclusion
 
-So this is whay I love automatic tests and I hope that you do to.
+So this is why I love automatic tests and I hope that you do to.
 
 Write those tests and prosper!
+
+![Bug!](https://media.giphy.com/media/3o7TKUcreLvhQNwCFG/giphy.gif)
 
 Happy coding!
 
