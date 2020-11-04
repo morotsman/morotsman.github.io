@@ -154,6 +154,8 @@ I have found it very useful to document the system in this way when writing func
 
 As an example when we had great usage of test cases like this was when one of our micro services got into trouble with load in production. We decided to rewrite the whole service. The requirement on the new service was the same as the old (apart from better scalability). Here we had great usage for our automatic tests, they told us the requirements of the system. In fact the test code was in the end the only thing that remained from the first version of the system (slightly modified) 
 
+By the way did we kill the system when rewriting it? It's a philosophical question. We didn't think of it that way, the service had to be rewritten since the user base had grown. We always knew that we someday had to do this but we choose to implement a simple and cheep solution and then evolve it when it was needed. Since we had our runnable specifications we were in total control.
+
 An example of when I wished that we had this kind of documentation in a legacy system was when my product owner asked me why we didn't allow a dot (.) as a valid character in the street address and why it was limited to 32 characters when the limit in the db was 40. 
 
 Alas I didn't have this information since the code was written several years before I started at the company, and I had to tell him that, well I don't know. Could it be a bug? Does one of the systems that we call have a limit on 32 characters on the street address? The system that we call, calls yet other systems, maybe one of them have a limit on 32 characters. Could it be something that is printed that looks ugly if we have more the 32 characters?
