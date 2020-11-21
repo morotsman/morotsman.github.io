@@ -405,6 +405,8 @@ In the code above we are covariant in the return type of the `getJoice` method i
 
 The code examples are available at [github].
 
+If you enjoyed this post you may be interested in a related post about [contravariance] where we investigate how it can be used to get a more flexible API.
+
 
 [covariance]: https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
 [LSP]: https://en.wikipedia.org/wiki/Liskov_substitution_principle
