@@ -13,7 +13,7 @@ Lets investigate how the [Finagle client] helps us to write resilient applicatio
 
 This is not some sort of expert instruction of how to configure and use Finagle, it is more of one persons (i.e my) journey towards an understanding of what Finagle has to offer. Most likely the person (yeah, once again myself) will misunderstand things, but that's what learning is all about, right? Learning from the mistakes.   
 
-## What is resilient?
+## What is resilience?
 
 To be able to write resilient applications we must first understand what it means to be resilient. Here is the definition from the dictionary:
 
@@ -25,7 +25,9 @@ Well, this is a huge topic, worthy of a book, and in fact Michael T. Nygard has 
 
 The really short version is that being resilient in the context of microservices is to be able to bounce back if things in your deployment environment starts to misbehave. I.e. to be able to serve request in a timely manner during the incident (probably with limited functionality), and then function as normal after the situation has been resolved. 
 
-There are of course many ways to misbehave in the context of microservices (or more genarally in the context of distributed systems), but the worst is to be slow when handling requests. Or actually even worse, to accept the request and then fail slowly. Why is this bad?
+There are of course many ways to misbehave in the context of microservices (or more genarally in the context of distributed systems), but the worst is to be slow when handling requests. Or actually even worse, to accept the request and then fail slowly. 
+
+Why is this bad?
 
 Well, slowness has a tendency to spread in a microservice architecture. In the next section we look at an example of a cascading failure.
 
@@ -47,7 +49,7 @@ And there you have your cascading failure! But is it a problem? Well, replace sy
 
 ![Resilient]({{ site.url }}/assets/resilient/distributed_4.png){:height="80%" width="80%"} 
 
-To be perfectly clear:
+This is bad, in fact to be perfectly clear:
 
 ![Naughty list!](https://media.giphy.com/media/47lf1638GDedZAnPQX/giphy.gif)
 
@@ -58,13 +60,13 @@ So here you have a distributed system that lacks resilience. Could we improve th
 
 The reason the webshop calls the stock service is to be able to warn the customer if an item is out of stock. Depending on the context it might be better to show slightly outdated stock information for the customer then to not be able to use the webshop during black friday. This should of course be a decision for the product owner. 
 
-Further, to keep this really simple, the stock service provide an API `GET stock` for a single item. Http status 200 means that the item is in stock.
+I will use this webshop example throughout the post to make things more concrete. Further, to keep this really simple, the stock service only provide a single API `GET stock` for a one item. If the service returns Http status 200 then the item is in stock.
 
 By the way, in the code examples below I'm using a mock service that I developed as a hobby project, the service makes it possible to define mock end points and a delay. It's available here: [mock service].
 
-Ok, so lets say that the PO tells us it's ok to just notify the customer that we don't have any information if the item in stock or not. 
+Ok, so lets say that the PO tells us it's ok to just tell the customer that the item is in stock if we run into trouble.  
 
-Well, then a simple timeout could just be the thing to save black friday. 
+Well, then a simple timeout with a fallback could be just the thing to save black friday. 
 
 ![Resilient]({{ site.url }}/assets/resilient/distributed_5.png){:height="80%" width="80%"} 
 
@@ -143,7 +145,7 @@ After call to client: 144 ms has elapsed
 Exception in thread "main" com.twitter.finagle.IndividualRequestTimeoutException: exceeded 200.milliseconds to localhost:9000 while waiting for a response for an individual request, excluding retries. Remote Info: Upstream Address: Not Available, Upstream id: Not Available, Downstream Address: localhost/127.0.0.1:9000, Downstream label: localhost:9000, Trace Id: 0f0aad9c2da112eb.0f0aad9c2da112eb<:0f0aad9c2da112eb
 {% endhighlight %}
 
-Ok, now we get a timeout, but the program was aborted since we got a IndividualRequestTimeoutException. This is maybe ok, but in this case I would like to do a fallback:
+Ok, now we get a timeout, but the program was aborted since we got a IndividualRequestTimeoutException. This is maybe ok, but in this case we would like to do a fallback:
 
 {% highlight scala %}
 val response: Future[http.Response] = client(request).rescue {
@@ -164,9 +166,9 @@ Have we rescued black friday? Yes! Could we do better? You bet!
 
 ## Stop calling the slow system with a circuit breaker
 
-The change above is a good beginning but we can do better! Wouldn't it be nice if we could decrease the traffic to the slow system, then maybe it would heal?
+The change above is a good beginning but we can do better! Wouldn't it be nice if we could decrease the traffic to the slow system? Then maybe it would heal itself?
 
-If we just set a timeout we will still call the slow system even if it's very likely that the request will timeout. So lets introduce a circuit breaker!
+If we just set a timeout we will still call the slow system even if it's very likely that the request will timeout. This is bad in two ways, first of all we are still using resources of the slow system, on top of that we have to wait for the request to timeout. So lets introduce a circuit breaker!
 
 But first of all what is a circuit breaker? It's a construct that has three different states: `Closed`, `Open` and `Half open`. 
 
@@ -174,7 +176,7 @@ In state `Closed` it let all calls from the client to pass through to the servic
 
 In state `Open` it fails fast. Once in a while it chages state to `Half open`.
 
-In state `Half open` we try to let a request through to the service. If it is a success (configured threashold) we change state to `Closed` if it is a failure we change back to `Open`. 
+In state `Half open` we try to let a request through to the service. If it is a success (configured threashold) we change state to `Closed`, if it is a failure we change back to `Open`. 
 
 ![Circit breaker]({{ site.url }}/assets/resilient/circuitbreaker_states.png){:height="100%" width="100%"} 
 
@@ -291,7 +293,7 @@ Here is the view from the mock stock service:
 
 ![Circuit breaker]({{ site.url }}/assets/resilient/circuitbreaker.png){:height="100%" width="100%"} 
 
-We can see that we receive a request from time to time in an increasing interval, we receive the requests when the Circuit breaker is in the `Half open` state. 
+We can see that we receive a request from time to time in an increasing interval, we receive the requests when the Circuit breaker is in the `Half open` state. In the end when I changed the delay to zero again we started to receive requests once again.
 
 This is nice, now we have saved black friday even more (not only a timeout, but also fail fast) and on top of that we have also been nice to our stock service. Are we still on the naughty list? 
 
