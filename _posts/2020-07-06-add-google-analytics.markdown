@@ -40,7 +40,7 @@ You will also need the code snippet in Global Sit Tag:
 
 If you copy paste from this post, please remember to replace UA-XXXXXXXXX-X (two places) with the Tracking id for your site.
 
-![Tracking code]({{ site.url }}/assets/adding_ga/Tracking_code.png)
+![Tracking code]({{ site.url }}/assets/adding_ga/Tracking_code.png){:height="120%" width="120%"}
 
 
 ## Setup Jekyll
@@ -59,7 +59,7 @@ You now know the drill about replacing UA-XXXXXXXXX-X with the Tracking Id from 
 
 Create a new file called google-analytics.html in the _includes directory (I also had to create the directory)
 
-![Tracking code]({{ site.url }}/assets/adding_ga/Directory.png)
+![Tracking code]({{ site.url }}/assets/adding_ga/Directory.png){:height="80%" width="80%"}
 
 
 And then add the code snippet from Google Analytics like this:
@@ -81,7 +81,7 @@ And that's it, the setup is completed!
 
 Time to celebrate and observe in realtime that the blog has zero visitors, but hey it's in realtime!
 
-![Tracking code]({{ site.url }}/assets/adding_ga/visitors.png)
+![Tracking code]({{ site.url }}/assets/adding_ga/visitors.png){:height="100%" width="100%"}
 
 [Google analytics]: https://analytics.google.com/
 
