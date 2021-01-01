@@ -51,7 +51,7 @@ And there you have your cascading failure! But is it a problem? Well, replace sy
 
 This is bad, in fact to be perfectly clear:
 
-![Naughty list!](https://media.giphy.com/media/47lf1638GDedZAnPQX/giphy.gif)
+![Naughty list!](https://media.giphy.com/media/joqN2kVids2Rtkag7n/giphy.gif)
 
 
 So here you have a distributed system that lacks resilience. Could we improve this? Yes! How?
