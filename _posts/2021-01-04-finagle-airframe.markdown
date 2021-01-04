@@ -21,7 +21,7 @@ This is not an expert post about Finagle and it's echo system, it's my attempt t
 
 > airframe-http is a library for creating REST HTTP web servers at ease. airframe-http-finagle is an extension of airframe-http to use Finagle as a backend HTTP server.
 
-This sounds good, in my previous [post] where I used vanilla Finagle HTTP to create a Todo app I had to write a lot of boilerplate code to handle stuff like error handling and trnasforming JSON to Scala objects, it would be really nice if this was handled by the framework.
+This sounds good, in my previous [post] where I used vanilla Finagle HTTP to create a Todo app I had to write a lot of boilerplate code to handle stuff like error handling and transforming JSON to Scala objects, it would be really nice if this was handled by the framework.
 
 ## The todo app
 
@@ -61,7 +61,7 @@ def createTodo(todo: Todo): Future[Todo] =
 
 Airframe takes care of transforming our json payload to a `Todo`. Since I wanted the title and completed fields to be mandatory I had to mark them with a `@required` annotation, otherwise Airframe gives me default values which is not what I want (read about id [here]).  
 
-The state of the app is inside an Actor so the endpoint is pretty trivial, just ask for the Actor to create the Todo and then return the result (all in a non blocking fashion of course). 
+The state of the app is inside an Actor, so the endpoint is pretty trivial, just ask for the Actor to create the Todo and then return the result (all in a non blocking fashion of course). 
 
 ![Obviously!](https://media.giphy.com/media/IbI9JesSiQ7ay5ZXLL/giphy.gif)
 
