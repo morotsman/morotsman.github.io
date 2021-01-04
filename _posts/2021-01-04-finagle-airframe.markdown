@@ -9,9 +9,9 @@ background: '/img/airframe.jpg'
 
 ## About the post
 
-I previously wrote a [post] where I tried to figure out what Finagle HTTP services is all about, more precisely I tried to implement a small REST Api. When writing the post I discovered that most people are using [Airframe] or [Fitch] instead of vanilla Finagle when doing such a task..
+I previously wrote a [post] where I tried to figure out what Finagle HTTP services is all about, more precisely I tried to implement a small REST Api. When writing the post I discovered that most people are using [Airframe] or [Fitch] instead of vanilla Finagle when doing such a task.
 
-This post is a continuation where I look at Airframe and tries to use that to implement the same REST Api.  
+This post is a continuation of the previous post where I will look at Airframe and try to use it to implement the same REST Api once again.  
 
 This is not an expert post about Finagle and it's echo system, it's my attempt to get an understanding what Finagle is all about.
     
