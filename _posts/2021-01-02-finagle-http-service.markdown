@@ -293,7 +293,7 @@ Since this is not a post about Actor I will not dwell on the code, I will only p
 
 When implementing the service I could not find that many good examples of how to develop a Finagle http service. I also found that I had to write more boiler plate code that I would have expected. It could be that I have missed something.
 
-I got the impression that most people use Finch or Airframe. In the next post I will invetsigate what kind of help I get when introducing `Finch`.
+I got the impression that most people use Finch or Airframe. In the [next post] I will investigate what kind of help I get when introducing `Finch` or `Airframe`.
 
 All code examples are available at [github].
 
@@ -303,3 +303,4 @@ Happy coding!
 [Airframe]: https://wvlet.org/airframe/docs/airframe-http.html
 [post]: https://morotsman.github.io/scala/finagle/client/2020/12/30/finagle-client.html
 [github]: https://github.com/morotsman/investigate_finagle/tree/main/src/main/scala/com/github/morotsman/investigate_finagle_service
+[next post]: https://morotsman.github.io/scala/finagle/airframe/2021/01/03/finagle-airframe.html
