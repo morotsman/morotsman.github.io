@@ -197,7 +197,7 @@ You can find the implementation at [github] together with the rest of the code.
 
 Airframe takes care of a lot of boilerplate code which is very nice. If I compare with my previous [post] where I used vanilla Finagle I could skip a lot of code, and the code that was left was clearer to read.
 
-Also, if you come from the Spring Boot world you feel right at home with the Dependency injection and annotation thingies. So this might be a good way to introduce Scala on a Java/Spring Boot centric company. 
+Also, if you come from the Spring Boot world you feel right at home with the Dependency injection and annotation thingies. This might be a good way to introduce Scala on a Java/Spring Boot centric company. 
 
 All code is available at [github].
 
