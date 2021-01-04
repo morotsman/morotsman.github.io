@@ -4,7 +4,7 @@ date:   2021-01-03 09:09:00 +0200
 categories: Scala Finagle Airframe
 title: Learning about Airframe
 subtitle: Implementing a todo app with Finagle and Airframe
-background: '/img/airframe.JPG'  
+background: '/img/airframe.jpg'  
 ---
 
 ## About the post
