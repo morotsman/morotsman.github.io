@@ -21,7 +21,7 @@ This is not an expert post about Finagle and it's echo system, it's my attempt t
 
 > airframe-http is a library for creating REST HTTP web servers at ease. airframe-http-finagle is an extension of airframe-http to use Finagle as a backend HTTP server.
 
-This sounds good, in my previous [post] where I used vanilla Finagle HTTP I had to write a lot of boilerplate code to handle stuff like error handling and trnasforming JSON to Scala objects, it would be realy nice if this was handled by the framework.
+This sounds good, in my previous [post] where I used vanilla Finagle HTTP to create a Todo app I had to write a lot of boilerplate code to handle stuff like error handling and trnasforming JSON to Scala objects, it would be really nice if this was handled by the framework.
 
 ## The todo app
 
