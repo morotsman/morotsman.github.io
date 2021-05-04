@@ -7,13 +7,9 @@ categories: blog, Google Analytics, Jekyll, Github pages
 background: '/img/new_york5.jpg' 
 ---
 
-
-
 So I decided to add Google analytics to my blog and now I can blog about it, so very meta of me :-)
 
 The blog is hosted by Github Pages using Jekyll by the way.
-
-![Alt Text](https://media.giphy.com/media/cRLhKFCmCfMFQmzHjd/giphy.gif)
 
 ## Get Google Analytics account
 
@@ -52,6 +48,8 @@ Add the following row:
 {% highlight Ruby %}
 google_analytics: UA-XXXXXXXXX-X
 {% endhighlight %}
+
+![Tracking code]({{ site.url }}/assets/adding_ga/config.png){:height="80%" width="80%"}
 
 You now know the drill about replacing UA-XXXXXXXXX-X with the Tracking Id from Google analytics, I will not mention it again (but you will have to do that in the next step as well).
 
