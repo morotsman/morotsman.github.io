@@ -81,6 +81,8 @@ Time to celebrate and observe in realtime that the blog has zero visitors, but h
 
 ![Tracking code]({{ site.url }}/assets/adding_ga/visitors.png){:height="100%" width="100%"}
 
+## Conclusion
+
 Ok, so now that you have added google analytics to your blog, why not stay for a while, relax and maybe read a couple of blog posts about [covariance], [contravariance] or even [functional bliss]? There will be quotes from Lord of the rings, funny gif's and much more.
 
 ## Github
