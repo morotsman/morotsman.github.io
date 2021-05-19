@@ -77,7 +77,7 @@ And that's it, the setup is completed!
 
 ## Head back to Google analytics
 
-Time to celebrate and observe in realtime that the blog has zero visitors, but hey it's in realtime!
+Time to celebrate and observe in realtime that the blog has zero visitors, but hey: it's in realtime!
 
 ![Tracking code]({{ site.url }}/assets/adding_ga/visitors.png){:height="100%" width="100%"}
 
