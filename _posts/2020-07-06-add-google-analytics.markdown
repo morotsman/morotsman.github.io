@@ -85,6 +85,9 @@ Time to celebrate and observe in realtime that the blog has zero visitors, but h
 
 Ok, so now that you have added google analytics to your blog, why not stay for a while, relax and maybe read a couple of blog posts about [covariance], [contravariance] or even [functional bliss]? There will be quotes from Lord of the rings, funny gif's and much more.
 
+![Alt Text](https://media.giphy.com/media/vsW15HzddQRZ2KiJ5j/giphy.gif)
+
+
 ## Github
 
 The source code for my blog is available at [github].
